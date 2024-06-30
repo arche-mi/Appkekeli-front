@@ -1,0 +1,15 @@
+.form-contact{
+    width: 30%;
+   margin: auto;
+   padding: 2rem;
+   display: flex;
+   flex-direction: column;
+}
+
+.form-contact input{
+    margin-bottom: 0.5rem !important;
+}
+.form-contact button{
+    width: 20%;
+    margin: inherit;
+}
