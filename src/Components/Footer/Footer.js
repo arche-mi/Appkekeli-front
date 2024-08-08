@@ -1,107 +1,57 @@
 import React from 'react';
 // import './App.css';  // Assurez-vous d'inclure ce fichier pour les styles CSS globaux
+import logo from '../Assets/logo.png'
+import logo_twitter from '../Assets/X-Twitter.svg'
+import logo_instagram from '../Assets/Instagram.svg'
+import logo_facebook from '../Assets/facebook.svg'
 
 export default function Footer() {
   return (
     <div>
-      <div className="">
-        {/* Footer */}
-        <footer className="text-center text-lg-start text-white" style={{ backgroundColor: '#1c2331' }}>
-          {/* Section: Social media */}
-          <section className="d-flex justify-content-between p-4" style={{ backgroundColor: '#6351ce' }}>
-            {/* Left */}
-            <div className="me-5">
-              <span>Get connected with us on social networks:</span>
-            </div>
-            {/* Right */}
-            <div>
-              <a href="#" className="text-white me-4">
-                <i className="fab fa-facebook-f"></i>
-              </a>
-              <a href="#" className="text-white me-4">
-                <i className="fab fa-twitter"></i>
-              </a>
-              <a href="#" className="text-white me-4">
-                <i className="fab fa-google"></i>
-              </a>
-              <a href="#" className="text-white me-4">
-                <i className="fab fa-instagram"></i>
-              </a>
-              <a href="#" className="text-white me-4">
-                <i className="fab fa-linkedin"></i>
-              </a>
-              <a href="#" className="text-white me-4">
-                <i className="fab fa-github"></i>
-              </a>
-            </div>
-          </section>
-          {/* Section: Links */}
-          <section>
-            <div className="container text-center text-md-start mt-5">
-              <div className="row mt-3">
-                {/* Grid column */}
-                <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                  <h6 className="text-uppercase fw-bold">Company name</h6>
-                  <hr className="mb-4 mt-0 d-inline-block mx-auto" style={{ width: '60px', backgroundColor: '#7c4dff', height: '2px' }} />
-                  <p>
-                    Here you can use rows and columns to organize your footer
-                    content. Lorem ipsum dolor sit amet, consectetur adipisicing
-                    elit.
-                  </p>
-                </div>
-                {/* Grid column */}
-                <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                  <h6 className="text-uppercase fw-bold">Products</h6>
-                  <hr className="mb-4 mt-0 d-inline-block mx-auto" style={{ width: '60px', backgroundColor: '#7c4dff', height: '2px' }} />
-                  <p>
-                    <a href="#!" className="text-white">MDBootstrap</a>
-                  </p>
-                  <p>
-                    <a href="#!" className="text-white">MDWordPress</a>
-                  </p>
-                  <p>
-                    <a href="#!" className="text-white">BrandFlow</a>
-                  </p>
-                  <p>
-                    <a href="#!" className="text-white">Bootstrap Angular</a>
-                  </p>
-                </div>
-                {/* Grid column */}
-                <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                  <h6 className="text-uppercase fw-bold">Useful links</h6>
-                  <hr className="mb-4 mt-0 d-inline-block mx-auto" style={{ width: '60px', backgroundColor: '#7c4dff', height: '2px' }} />
-                  <p>
-                    <a href="#!" className="text-white">Your Account</a>
-                  </p>
-                  <p>
-                    <a href="#!" className="text-white">Become an Affiliate</a>
-                  </p>
-                  <p>
-                    <a href="#!" className="text-white">Shipping Rates</a>
-                  </p>
-                  <p>
-                    <a href="#!" className="text-white">Help</a>
-                  </p>
-                </div>
-                {/* Grid column */}
-                <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                  <h6 className="text-uppercase fw-bold">Contact</h6>
-                  <hr className="mb-4 mt-0 d-inline-block mx-auto" style={{ width: '60px', backgroundColor: '#7c4dff', height: '2px' }} />
-                  <p><i className="fas fa-home mr-3"></i> New York, NY 10012, US</p>
-                  <p><i className="fas fa-envelope mr-3"></i> info@example.com</p>
-                  <p><i className="fas fa-phone mr-3"></i> + 01 234 567 88</p>
-                  <p><i className="fas fa-print mr-3"></i> + 01 234 567 89</p>
-                </div>
-              </div>
-            </div>
-          </section>
-          {/* Copyright */}
-          <div className="text-center p-3" style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
-            © 2020 Copyright:
-            <a className="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+      <div className="container">
+        <footer className="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
+          <div className="col mb-3">
+            <a href="/" className="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
+              <img className='' src={logo} alt='logo' width="150" height="150" />
+            </a>
           </div>
+
+          <div className="col mb-3">
+
+          </div>
+
+          <div className="col mb-3">
+            <h5>Contenu site</h5>
+            <ul className="nav flex-column">
+              <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">Villes</a></li>
+              <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">Processus reservation</a></li>
+              <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">Contact</a></li>
+              <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">Panier</a></li>
+            </ul>
+          </div>
+
+          <div className="col mb-3">
+            <h5>Infos</h5>
+            <ul className="nav flex-column">
+              <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">Côte d'ivoire, ci</a></li>
+              <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">kekeli.akagbor@gmail.com</a></li>
+              <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">+225 0556273199</a></li>
+              <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">+225 0142127104</a></li>
+            </ul>
+          </div>
+
+
         </footer>
+          <div className="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+            <p>© 2024 kekely Corporation, Inc. Tous droits réservés.</p>
+            <ul className="list-inline d-flex">
+              <li className="ms-3"><a className="link-body-emphasis" href="#"><img className='' src={logo_twitter} alt='' width='' height=''/></a></li>
+              <li className="ms-3"><a className="link-body-emphasis" href="#"><img className='' src={logo_instagram} alt='' width='' height=''/></a></li>
+              <li className="ms-3"><a className="link-body-emphasis" href="#"><img className='' src={logo_facebook} alt='' width='' height=''/></a></li>
+            </ul>
+          </div>
       </div>
     </div>
   );
 }
+

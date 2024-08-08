@@ -17,3 +17,74 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/************************************ Main Page  ********************************/
+
+
+/************Form contact  *****************/
+.form-contact{
+  padding: none !important;
+}
+
+/************************************ Main Inscription  ********************************/
+
+.accordion{
+  margin-top: 10rem !important;
+}
+
+/********************* Media query *************************/
+@media (max-width: 991px) { 
+
+/********************** Navbar *******************/
+
+  .ms-auto{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+ 
+  .navbar-nav{
+    margin: 0!important;
+    text-align: center;
+  }
+  .nav-item{
+    margin: 0!important;
+  }
+  .btn{
+    margin: 0!important;
+    width: 120px;        
+    margin-top: 5px !important;
+
+  }
+  .navbar{
+    flex-direction: row!important;
+    margin: 0 !important;
+  }
+  .card-img-overlay{
+    width: auto;
+    margin-top: 6rem;
+    max-height: 30rem;
+  }
+ 
+
+/************Form contact  *****************/
+
+/********************** Footer *******************/
+
+.text-body-secondary{
+
+  vertical-align: inherit;
+}
+.col h5{
+  vertical-align: inherit;
+}
+.nav-link{
+  vertical-align: inherit;
+}
+
+.d-flex{
+  justify-content: center;
+}
+
+}

@@ -1,0 +1,73 @@
+{
+    "code": "200",
+    "msg": "Liste cree avec succes",
+    "data": [
+        {
+            "abidjan": [
+                {
+                    "SectionLogement": [
+                        {
+                            "Nom": "résidence ",
+                            "Lieu": "marcory"
+                        },
+                        {
+                            "Nom": "résidence B",
+                            "Lieu": "koumassi"
+                        }
+                    ]
+                },
+                {
+                    "Sectionvéhicule": [
+                        {
+                            "Nom": "Peugeot",
+                            "type": "mini van",
+                            "nombrePlace": "5",
+                            "prix": "20$",
+                            "etat": "disponible"
+                        },
+                        {
+                            "Nom": "Suberban",
+                            "type": "mono volume",
+                            "nombrePlace": "8",
+                            "prix": "200$",
+                            "etat": "disponible"
+                        },
+                        {
+                            "Nom": "Toyota",
+                            "type": "mono volume",
+                            "nombrePlace": "5",
+                            "prix": "20$",
+                            "etat": "disponible"
+                        }
+                    ]
+                }
+            ],
+            "yamoussoukro": [
+                {
+                    "SectionLogement": [
+                        {
+                            "Nom": "résidence ",
+                            "Lieu": "marcory"
+                        },
+                        {
+                            "Nom": "résidence B",
+                            "Lieu": "koumassi"
+                        }
+                    ]
+                },
+                {
+                    "Sectionvéhicule": [
+                        {
+                            "Nom": "résidence",
+                            "Lieu": "marcory"
+                        },
+                        {
+                            "Nom": "résidence B",
+                            "Lieu": "koumassi"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
