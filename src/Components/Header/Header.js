@@ -3,7 +3,7 @@ import React from 'react'
 import logo from '../Assets/logo.png'
 import background_img from '../Assets/img-header.jpg'
 import { Link } from 'react-router-dom'
-import './Header.css'
+import './header.css'
 
 function Header(styles) {
   // console.log(styles)
