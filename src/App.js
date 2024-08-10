@@ -1,7 +1,7 @@
 import './App.css';
 import { Component } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import MainPage from './Components/mainPage.js';
+import MainPage from './Components/MainPage.js';
 import SecondPage from './Components/SecondPage.js';
 import Inscription from './Components/Insrciption.js'
 import Connexion from './Components/Connexion.js';

@@ -16,20 +16,24 @@ export default class Villes extends Component {
 
   render() {
     return (
-      
-      <div className="p-5">
-        <div className="div-grid">
-          <VillesTemplate src={abidjan}>Abidjan</VillesTemplate>
-          <VillesTemplate src={yamoussoukro}>Yamoussoukro</VillesTemplate>
-          <VillesTemplate src={bouake}>Bouake</VillesTemplate>
-          <VillesTemplate src={daloa}>Daloa</VillesTemplate>
-          <VillesTemplate src={sanspedro}>Sans pedro</VillesTemplate>
-          <VillesTemplate src={korhogo}>Korhogo</VillesTemplate>
-          <VillesTemplate src={aboisso}>Aboisso</VillesTemplate>
-          <VillesTemplate src={gagnoa}>Gagnoa</VillesTemplate>
+      <div className="album py-5 bg-light">
+        <div className="m-auto p-2">
+          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-md-4 g-3">
+
+            <VillesTemplate src={abidjan}>Abidjan</VillesTemplate>
+            <VillesTemplate src={yamoussoukro}>Yamoussoukro</VillesTemplate>
+            <VillesTemplate src={bouake}>Bouake</VillesTemplate>
+            <VillesTemplate src={daloa}>Daloa</VillesTemplate>
+            <VillesTemplate src={sanspedro}>Sans pedro</VillesTemplate>
+            <VillesTemplate src={korhogo}>Korhogo</VillesTemplate>
+            <VillesTemplate src={aboisso}>Aboisso</VillesTemplate>
+            <VillesTemplate src={gagnoa}>Gagnoa</VillesTemplate>
+
+
+          </div>
         </div>
       </div>
     )
-    
+
   }
 }

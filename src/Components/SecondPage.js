@@ -3,7 +3,7 @@ import React from 'react'
 import { useLocation } from 'react-router-dom'
 import Header from './Header/Header'
 import Footer from './Footer/Footer'
-import Villes from './Body/villes/Villes'
+import SiteTouristic from './Body/siteTouristic/SiteTouristic'
 import Vehicules from './Body/vehicules/Vehicules'
 import jsonData from '../data/data.json'
 
@@ -49,16 +49,20 @@ function SecondPage(props) {
             <div className=' bg-secondary text-dark' style={{ color: "black", backgroundColor: "", marginTop: "5rem" }}>
                 <div className=''>
                     <h1 className=''>Section Site touristique de {id} </h1>
-                    <Villes />
+                    <SiteTouristic/>
                 </div>
                 <div className=''>
                     <h1 className=''>Section Logement</h1>
-                    <Villes />
+                    {/* <Villes /> */}
                     
                 </div>
                 <div className=''>
                     <h1 className=''>Section Vehicule</h1>
                     <Vehicules />
+                </div>
+                <div className=''>
+                    <h1 className=''>Section Restaurant</h1>
+                    {/* <Vehicules /> */}
                 </div>
             </div>
             <Footer />

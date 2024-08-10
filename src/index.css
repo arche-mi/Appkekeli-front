@@ -19,8 +19,12 @@ code {
 }
 
 /************************************ Main Page  ********************************/
-
-
+.btn-link-space{
+  margin: 0.2rem !important;
+}
+.container{
+  /* width: 0% !important; */
+}
 /************Form contact  *****************/
 .form-contact{
   padding: none !important;
@@ -56,6 +60,9 @@ code {
     width: 120px;        
     margin-top: 5px !important;
 
+  }
+  .btn-link-space{
+    margin: 0.2rem !important;
   }
   .navbar{
     flex-direction: row!important;

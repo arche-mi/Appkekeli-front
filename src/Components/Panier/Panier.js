@@ -2,11 +2,7 @@ import React from 'react'
 import ModalPaiement from '../ModalPaiement/ModalPaiement'
 
 export default function Panier() {
-    let HandleClick = ()=>{
-        
-        return <ModalPaiement/>
-        
-    }
+  
     return (
         <div>
             <div className=" m-5">
