@@ -40,7 +40,6 @@ code {
 @media (max-width: 991px) { 
 
 /********************** Navbar *******************/
-
   .ms-auto{
     display: flex;
     flex-direction: column;

@@ -45,7 +45,7 @@ a,
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  background-image: url();
+  
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -68,7 +68,7 @@ a,
 h1,
 h2 {
   font-weight: 300;
-  color: rgba(255,255,255,1);
+  
 }
 .heading--primary {font-size: 1.999rem;}
 .heading--secondary {font-size: 1.414rem;}

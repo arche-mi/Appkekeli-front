@@ -1,5 +1,5 @@
 import React from 'react'
-import ModalPaiement from '../ModalPaiement/ModalPaiement'
+import ModalPaiement from '../Modal/ModalPaiement'
 
 export default function Panier() {
   
@@ -25,7 +25,7 @@ export default function Panier() {
                                 </li>
                             </ul>
 
-                            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">COMMANDER</button>
+                            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalPaiement">COMMANDER</button>
                         </div>
                         <div className="col-md-7 col-lg-8">
                             <h4 className="d-flex justify-content-evenly align-items-center mb-3">

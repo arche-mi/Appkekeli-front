@@ -15,7 +15,7 @@ class App extends Component {
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/Panier" element={<PanierPage />} />
-            <Route path="/SecondPage/:id" element={<SecondPage />} />
+            <Route path="/Ville/:id" element={<SecondPage />} />
             <Route path="/Inscription" element={<Inscription />} />
             <Route path="/Connexion/" element={<Connexion />} />
           </Routes>

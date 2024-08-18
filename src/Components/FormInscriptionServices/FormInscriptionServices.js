@@ -9,31 +9,31 @@ function FormInscriptionServices() {
                 <form action="#">
                     <div className="form-group">
                         <label htmlFor="nom">Nom</label>
-                        <input className="form-control" type="text" name="nom" id="nom_Services" placeholder="Aka" required />
+                        <input className="form-control" type="text" name="nom" id="nom_Services" required />
                     </div>
                     <div className="form-group">
                         <label htmlFor="prenom">Prenom</label>
-                        <input className="form-control" type="text" name="nom" id="prenom_Services" placeholder="kekely" required />
+                        <input className="form-control" type="text" name="nom" id="prenom_Services" required />
                     </div>
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
-                        <input className="form-control" type="text" name="email" id="email_Services" placeholder="kekely@gmail.com" required />
+                        <input className="form-control" type="text" name="email" id="email_Services" required />
                     </div>
                     <div className="form-group">
                         <label htmlFor="numero">Numero</label>
-                        <input className="form-control" type="tel" name="numero" id="numero_Services" placeholder="+225 0556273199" required />
+                        <input className="form-control" type="tel" name="numero" id="numero_Services" required />
                     </div>
                     <div className="form-group">
                         <label htmlFor="ville">Ville</label>
-                        <input className="form-control" type="text" name="ville" id="ville_Services" placeholder="Abidjan" required />
+                        <input className="form-control" type="text" name="ville" id="ville_Services" required />
                     </div> 
                     <div className="form-group">
                         <label htmlFor="commune">Commune</label>
-                        <input className="form-control" type="text" name="commune" id="commune_Services" placeholder="Marcory" required />
+                        <input className="form-control" type="text" name="commune" id="commune_Services" required />
                     </div>
                     <div className="form-group">
                         <label htmlFor="password">Mot de passe</label>
-                        <input className="form-control" type="password" name="password" id="password_Services" placeholder="********" required />
+                        <input className="form-control" type="password" name="password" id="password_Services" required />
                     </div>
                     
                     <div className="pt-4">

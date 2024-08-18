@@ -24,8 +24,8 @@ export default function VillesTemplate({ children, src }) {
                 <img src={src} className="card-img" alt={children} />
                 <h5 className="img-title" style={{ position: "absolute", top: "40%", left: "50%", transform: "translate(-50%, -50%)", color: "white" }}>{children}</h5>
                 <div className="card-body" style={{ position: "absolute", width:"100%",top: "70%", left: "50%", transform: "translate(-50%, -50%)", display: "none" }}>
-                    <Link to={`/SecondPage/${children}`} className="btn btn-primary btn-link-space" >Voir services</Link>
-                    <Link to={`/SecondPage/`} className="btn btn-primary btn-link-space">Voir plus</Link>
+                    <Link to={`/Ville/${children}`} className="btn btn-primary btn-link-space" >Voir services</Link>
+                    <Link to={`/Ville/`} className="btn btn-primary btn-link-space">Voir plus</Link>
                 </div>
             </div>
         </div>
