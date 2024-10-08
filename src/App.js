@@ -6,6 +6,7 @@ import SecondPage from './Components/SecondPage.js';
 import Inscription from './Components/Insrciption.js'
 import Connexion from './Components/Connexion.js';
 import PanierPage from './Components/PanierPage.js';
+import DashBoardAdmin from './Components/DashBoardAdmin/DashBoardAdmin.js'
 
 class App extends Component {
   render() {
@@ -15,9 +16,10 @@ class App extends Component {
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/Panier" element={<PanierPage />} />
-            <Route path="/Ville/:id" element={<SecondPage />} />
+            <Route path="/Villes/:id" element={<SecondPage />} />
             <Route path="/Inscription" element={<Inscription />} />
             <Route path="/Connexion/" element={<Connexion />} />
+            <Route path="/DashBoardAdmin/" element={<DashBoardAdmin />} />
           </Routes>
         </Router>
 

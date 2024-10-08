@@ -1,0 +1,118 @@
+Habilitations : 2 parties
+
+Définition : 
+
+Il s'agit pour nous de creer un systeme dans lequel les administrateurs pourront dire à tel groupe d'utilisateur, on vous donne le droit de faire un certain nombre d'action dans le logiciel et demain on doit pouvoir dire aussi à tel autre groupe d'utilisateur qu'il n'est plus capable de realiser telles ou telles choses dans le logiciel. 
+Exemple: On dit à un User qu'il n'as plus le droit de modifier son propre profile et quand il se connecter , il n'as plus droit de le faire.
+
+Partie 1: LES DROITS
+
+1- Definir les droits dans le système
+il existe des droits sur les entités
+
+Définir des droits pour les actions communes comme les verbes Create , read, update, delete, (editer?)
+Ces verbes peuvent être regroupé dans d'autres verbes. 
+Le verbe Manage est utiliser pour les droits globaux 
+
+2- Determiner les entités sur lesquels les verbes( Ce sont les droits ) vont s'appliqués 
+3- La cible c'est l'objet sur lequel est exercé l'action : 
+
+Right Item (Item de droit ): 1- Fonction
+            2- Structure 
+            3- Type Structure
+            4- Organigramme
+            5- Personne
+
+Un Item est tout ce qu'on peut gerer via l'IHM (Interface Homme Machine)
+
+
+Right Verbes :
+Ce sont les verbes qu'on va utiliser pour composer les droits
+
+
+Right Verbes :
+
+- CREATE 
+- READ / DETAILS
+- EDITER 
+- DELETE / Manage( Manage regroupe plusieurs droits)
+
+Right Target :
+
+- SELF(droit appartenant à l'utilisateur actuelle)
+- ALL
+- GROUP(Contrainte ou expression qui retourne une fonction de ID de structure )
+
+La liste des droits possibles : 
+
+STRUCTURE_CREATE_SELF
+STRUCTURE_CREATE_EDIT
+STRUCTURE_CREATE_ALL
+
+Nomenclature des droits possibles : RIGHT-ITEM_RIGHT-VERB_RIGHT-TARGET
+
+Comment attribuer les droits : Les droits seront appliqués par groupe et de manière spécifique à certains utilisateurs
+
+La base de données des droits sont : RIGHT-ITEM, RIGHT-VERB, RIGHT-TARGET et RIGHT
+
+Pour définir une contrainte :
+- La contrainte peut stipuler les objets qui appartiennent à un certains groupes de personnes (LES GROUPES)
+- Signifier l'univers des objets dans un certain etat (Ayant subie ou non certaines actions) Ex: une structure creer
+- Les objets avec un attribut respectant une certaines valeurs
+
+Creer un historique : L'historisque va repertorier toutes les modifications effectuer par un utilsiateur ce qui va nous permettre de tracer toutes les actions d'un user dans le logiciel 
+
+L'historique comprends les dates de modifications d'une structure , id d'une structure, le user qui à apporter les modifications.
+
+Formulaire pour definir des droits 
+creer une table field qui correspond à des élements dans une table donnée( table fonction)
+
+GUIDE POUR LES FRONT END:
+
+-Il s'agit de mettre en place deux fonctions qui vont simplifier : 
+       - has_right : retourne true or false
+Chaque item à un right_code et un right_ref (référence de droit), en IHM on aura un attribut data-rcode et data-ref
+
+Ex: La page de formulaire reçoit data-ref = user et data-rcode = create
+
+Un droit permet de les activer
+On l'invoque avec la commande suivante:
+       if(has_right = this)  this: est l'element html
+
+       if (has_right = this){
+        display: block;
+       }
+
+LES USES CASES:
+- Gestion des contraintes : L'utilisateur creer des contraintes des droits(creer des contraintes sur groupe, creer des contraintes sur etat,   creer des contraintes sur attribut) ,
+- Gestions des droits: Il attribu les droits à des groupes ou à un ou plusieurs utilisateurs
+- Gestions des groupes de comptes utilisateurs
+
+Formulaire de creation de groupes
+nom du groupe
+description du groupe
+
+Faire un CRUD du groupe
+
+LES TYPES DE DROITS :
+
+Les droits en liste noire: droit negatif
+Les listes blanches : droit positif
+Les groupes enveloppes (regroupe plusieurs groupes)
+Le groupe Admin et le groupe SuperAdmin
+
+LES TYPES DE LISTES:
+
+Liste noire:
+Liste blanche:
+
+/************** GROUPES ****************/
+Group_list : viens sans les droits (name, groupeId, description , metadata)
+Group_details
+Group_edit
+Group_delete_list : pour supprimer toutes une liste de groupe
+Group_delete_All : pour suprimer toutes les listes du groupe
+
+
+
+Partie 2: LES HABILITATIONS

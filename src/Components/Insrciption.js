@@ -3,14 +3,15 @@ import Header from './Header/Header'
 import FormInscriptionReserver from './FormInscriptionReserver/FormInscriptionReserver'
 import FormInscriptionServices from './FormInscriptionServices/FormInscriptionServices'
 import Footer from './Footer/Footer'
-import { useLocation } from 'react-router-dom'
+import './inscription.css'
+// import { useLocation } from 'react-router-dom'
 
 
 export default function Insrciption() {
     const myRef = useRef(null);
     {
 
-        let { state } = useLocation();
+        // let { state } = useLocation();
         // if (state.value === "reserver") {
         //     console.log("youpi reserver")
         //     // console.log(myRef.current)
@@ -21,8 +22,8 @@ export default function Insrciption() {
     return (
         <div>
             <Header styles={{ display: "none" }} />
-            <div className="accordion w-50 m-auto" id="accordionExample">
-                <div className="accordion-item">
+            <div className="accordion w-100 d-flex flex-column align-items-center" id="accordionExample" style={{marginTop: "200px", minHeight:"400px"}}>
+                <div className="accordion-item w-50">
                     <h2 className="accordion-header">
                         <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                             Reserver
@@ -30,12 +31,12 @@ export default function Insrciption() {
                     </h2>
                     <div id="collapseOne" ref={myRef.current} className="accordion-collapse collapse " data-bs-parent="#accordionExample">
                         <div className="accordion-body">
-                            <FormInscriptionReserver/>
+                            <FormInscriptionReserver state={{type: "typeacteur",acteur: "ACTEURLOGEMENT"}}/>
                         </div>
                     </div>
                 </div>
-                <div className="accordion-item">
-                    <h2 className="accordion-header">
+                <div className="accordion-item w-50 mt-5">
+                    <h2 className="accordion-header acor-h">
                         <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                             Proposer service
                         </button>

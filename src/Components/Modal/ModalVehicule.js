@@ -1,7 +1,4 @@
 import React from 'react'
-import Banco3 from '../Assets/ForetBanco3.jpg'
-import Banco1 from '../Assets/ForêtBanco1.jpg'
-import Banco2 from '../Assets/ForetBanco2.jpg'
 import './styleModal.css'
 
 export default function ModalVehicule({state}) {
@@ -27,13 +24,13 @@ export default function ModalVehicule({state}) {
                     </div>
                     <div className="carousel-inner" >
                       <div className="carousel-item active">
-                        <img className='card-img card-img-top card-img-site' src={Banco1} alt='banco1' width='' height='' style={{ filter: "brightness(70%)" }} />
+                        <img className='card-img card-img-top card-img-site' id='imgsrcVehi1' alt='banco1' width='' height='' style={{ filter: "brightness(70%)" }} />
                       </div>
                       <div className="carousel-item">
-                        <img className='card-img card-img-top card-img-site' src={Banco2} alt='banco2' width='' height='' style={{ filter: "brightness(70%)" }} />
+                        <img className='card-img card-img-top card-img-site' id='imgsrcVehi2' alt='banco2' width='' height='' style={{ filter: "brightness(70%)" }} />
                       </div>
                       <div className="carousel-item">
-                        <img className='card-img card-img-top card-img-site' src={Banco3} alt='banco2' width='' height='' style={{ filter: "brightness(70%)" }} />
+                        <img className='card-img card-img-top card-img-site' id='imgsrcVehi3' alt='banco2' width='' height='' style={{ filter: "brightness(70%)" }} />
                       </div>
                     </div>
                     <button className="carousel-control-prev" type="button" data-bs-target={`#Modal${state}`} data-bs-slide="prev">

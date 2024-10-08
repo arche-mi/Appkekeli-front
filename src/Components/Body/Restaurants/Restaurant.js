@@ -1,15 +1,27 @@
 import React from 'react'
 import ModalRestaurant from '../../Modal/ModalRestaurant'
-import Banco1 from '../../Assets/ForêtBanco1.jpg'
-import Banco2 from '../../Assets/ForetBanco2.jpg'
-import Banco3 from '../../Assets/ForetBanco3.jpg'
 
-export default function Restaurant({children,state}) {
+export default function Restaurant({ children, state }) {
+console.log(state)
+    {
+        var showModal = (event) => {
+            var imgSrc1 = document.getElementById('imgsrcRest1');
+            var imgSrc2 = document.getElementById('imgsrcRest2');
+            var imgSrc3 = document.getElementById('imgsrcRest3');
+
+            // Bouton qui a déclenché le modal
+            var button = event.target;
+            console.log(button)
+            imgSrc1.setAttribute("src", state.src1)
+            imgSrc2.setAttribute("src", state.src2)
+            imgSrc3.setAttribute("src", state.src3)
+        }
+    }
     return (
         <div>
             <div className="container">
 
-                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <div className="">
                     <div className="col">
                         <div className="card shadow-sm rounded-3">
                             <div id={`Carousel${children}`} className="carousel slide">
@@ -22,15 +34,15 @@ export default function Restaurant({children,state}) {
                                     <div className="carousel-item active">
                                         {/* <svg className="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg> */}
 
-                                        <img className='rounded-top card-img' src={Banco1} alt='banco3' width='' height='' style={{filter: "brightness(70%)"}}/>
+                                        <img className='rounded-top card-img card-img-size' src={state.src1} alt='banco3' width='' height='' style={{ filter: "brightness(70%)" }} />
                                     </div>
                                     <div className="carousel-item">
                                         {/* <svg className="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg> */}
-                                        <img className='rounded-top card-img' src={Banco2} alt='banco3' width='' height='' style={{filter: "brightness(70%)"}}/>
+                                        <img className='rounded-top card-img card-img-size' src={state.src2} alt='banco3' width='' height='' style={{ filter: "brightness(70%)" }} />
                                     </div>
                                     <div className="carousel-item">
                                         {/* <svg className="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg> */}
-                                        <img className='rounded-top card-img' src={Banco3} alt='banco3' width='' height='' style={{filter: "brightness(70%)"}}/>
+                                        <img className='rounded-top card-img card-img-size' src={state.src3} alt='banco3' width='' height='' style={{ filter: "brightness(70%)" }} />
                                     </div>
                                 </div>
                                 <button className="carousel-control-prev" type="button" data-bs-target={`#Carousel${children}`} data-bs-slide="prev">
@@ -48,7 +60,7 @@ export default function Restaurant({children,state}) {
                                 <p className="card-text">PARC NATIONAL DU BANCO</p>
                                 <div className="d-flex justify-content-between align-items-center">
                                     <div className="btn-group">
-                                        <button type="button" className="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#ModalRestaurant">Voir plus</button>
+                                        <button type="button" className="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#ModalRestaurant" onClick={showModal}>Voir plus</button>
                                     </div>
                                     <i className="bi bi-heart">9 j'aime</i>
                                 </div>
@@ -58,7 +70,7 @@ export default function Restaurant({children,state}) {
 
                 </div>
             </div>
-            <ModalRestaurant state = {state.value}/>
+            <ModalRestaurant state={state.value} />
         </div>
     )
 }
