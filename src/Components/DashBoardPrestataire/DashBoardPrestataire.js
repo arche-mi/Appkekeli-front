@@ -6,9 +6,9 @@ export default class DashBoardPrestataire extends Component {
     return (
       <div>
         <header>
-        <h1><i class="fas fa-tachometer-alt"></i> Tabldeau de Bord</h1>
+        <h1><i class="fas fa-tachometer-alt"></i> Tableau de Bord</h1>
         <div className=''>
-        <button class="edit"><i class="fas fa-sign-out-alt"></i> Aller à l'acceuil</button>
+        {/* <button class="edit"><i class="fas fa-sign-out-alt"></i> Aller à l'acceuil</button> */}
         <button id="logout"><i class="fas fa-sign-out-alt"></i> Se déconnecter</button>
         </div>
     </header>

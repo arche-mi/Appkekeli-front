@@ -163,9 +163,8 @@ export default function DashBoardAdmin() {
     return (
         <div>
             <header className='header-admin'>
-                <h1 style={{ color: 'white' }} ><i className="fas fa-tachometer-alt"></i> Taxeau de Bord</h1>
+                <h1 style={{ color: 'white' }} ><i className="fas fa-tachometer-alt"></i> Tableau de Bord</h1>
                 <div className=''>
-                    <button style={{padding: '0.5rem'}} className=" view-ac-dash" onClick={handleAccueil}> Aller à l'acceuil</button>
                     <>
                         <Button colorScheme='red' onClick={handleLogout}>
                             Se deconnecter
