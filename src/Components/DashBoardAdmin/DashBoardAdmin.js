@@ -2,15 +2,25 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation,useNavigate } from 'react-router-dom';
 import './style.css'
-
+import {
+    AlertDialog,
+    AlertDialogBody,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogContent,Button,
+    AlertDialogOverlay,useDisclosure
+  } from '@chakra-ui/react'
 import ModalAjoutLogement from "../Modal/ModalAjoutLogement"
 import ModalAjoutVehicule from "../Modal/ModalAjoutVehicule"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';  // Assurez-vous d'importer le CSS de react-toastify
 
 export default function DashBoardAdmin() {
+    const { isOpen, onOpen, onClose } = useDisclosure()
+  const cancelRef = React.useRef()
     const navigate = useNavigate();  // Hook pour naviguer entre les routes
     const location = useLocation();
+    const [token, setToken]= useState()
     const { firstName, role } = location.state || {}; // Récupérer les données passées via navigate
     // État qui gère l'affichage des différentes sections (true = visible, false = caché)
     // const [sections, setSections] = useState({
@@ -29,11 +39,12 @@ export default function DashBoardAdmin() {
 
     //Gerer le toats
     //   const [searchParams] = useSearchParams();
-    //   const prenom = searchParams.get('prenom');   // Récupère la valeur du paramètre "prenom"
+    //   const prenom = searchParams.get('prenom');   // Récupère la valeur du paramètre "prenom"    
 
-    useEffect(() => {
+    useEffect(() => {        
 
          // Appel initial de la fonction fetch
+         setToken(localStorage.getItem("token"))
         
          fetch('http://localhost:8080/residences', {
             method: 'GET',
@@ -63,9 +74,7 @@ export default function DashBoardAdmin() {
                 },
             }).then(response => response.json())
                 .then((data) => {
-                    console.log(data.vehicules)
-                    setVehicule(data.vehicules)
-    
+                    setVehicule(data.vehicules)    
                 })
                 .catch(error => console.error('Erreur lors de la récupération des données vehicules:', error));
         // Vérifie si le toast a déjà été affiché
@@ -81,21 +90,35 @@ export default function DashBoardAdmin() {
     }, [firstName, role]);
 
     const handleAccueil =  () =>{
-
         navigate(`/`);
     }
 
     const [logement, setLogement] = useState([]);
     const [vehicule, setVehicule] = useState([]);
-        
-       
-    
+               
 
+    const handleLogout = () => {
+        localStorage.clear()
+        onClose()
+        navigate(`/`);
+    };
 
-    const vehiculedata = [{ "Numéro": "1", "Marque": "Toyota", "Modèle": "Mini van", "Prix": "30$", "Disponibilité": "disponible" }, { "Numéro": "2", "Marque": "Toyota", "Modèle": "Mini van", "Prix": "30$", "Disponibilité": "disponible" }]
-
-    const logementdata = [{ "Numéro": "1", "Nom": "Toyota", "Description": "Mini van", "Prix": "30$", "Disponibilité": "disponible" }, { "Numéro": "2", "Marque": "Toyota", "Modèle": "Mini van", "Prix": "30$", "Disponibilité": "disponible" }]
-
+    const handleDeleteVehicule = (id) => {
+        fetch(`http://localhost:8080/vehicules/${id}`, {
+            method: 'DELETE',
+            // body: JSON.stringify(json),
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+        }).then(response => response)
+            .then((data) => {
+                console.log(data);
+                
+                window.location.reload();
+            })
+            .catch(error => console.error(error));
+    }
 
     return (
         <div>
@@ -103,7 +126,37 @@ export default function DashBoardAdmin() {
                 <h1 style={{color:'white'}} ><i className="fas fa-tachometer-alt"></i> Taxeau de Bord</h1>
                 <div className=''>
                     <button className=" view-ac-dash" onClick={handleAccueil}> Aller à l'acceuil</button>
-                    <button id="logout" className='btn btn-secondary'><i className="fas fa-sign-out-alt"></i> Se déconnecter</button>
+                    <>
+              <Button colorScheme='red' onClick={onOpen}>
+        Se deconnecter
+      </Button>
+      <AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+              Deconnection
+            </AlertDialogHeader>
+
+            <AlertDialogBody>
+              Vous allez etre deconnecter. Etes-vous sur de vouloir continuer ?
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                Non
+              </Button>
+              <Button colorScheme='red' onClick={handleLogout} ml={3}>
+                Oui
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>  
+              </>  
                 </div>
             </header>
 
@@ -168,8 +221,8 @@ export default function DashBoardAdmin() {
                                                     <td>{key.disponible}</td>
                                                     <td>
                                                         <button className="view"><i className="fas fa-eye"></i> Consulter</button>
-                                                        <button className="edit"><i className="fas fa-edit"></i> Editer</button>
-                                                        <button className="delete"><i className="fas fa-trash-alt"></i> Supprimer</button>
+                                                        {/* <button className="edit"><i className="fas fa-edit"></i> Editer</button> */}
+                                                        <Button onClick={handleDeleteVehicule.bind(null, key.id)}>Supprimer</Button>
                                                     </td>
                                                 </tr>)
                                         })
