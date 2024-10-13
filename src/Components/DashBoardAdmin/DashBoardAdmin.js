@@ -31,7 +31,9 @@ export default function DashBoardAdmin() {
     const navigate = useNavigate();  // Hook pour naviguer entre les routes
     const location = useLocation();
     const [currentVehicule, setCurrentVehicule] = useState()
+    const [currentLogement, setCurrentLogement] = useState()
     const [token, setToken] = useState()
+    const drawer = useDisclosure()
     const { firstName, role } = location.state || {}; // Récupérer les données passées via navigate
     // État qui gère l'affichage des différentes sections (true = visible, false = caché)
     // const [sections, setSections] = useState({
@@ -153,12 +155,17 @@ export default function DashBoardAdmin() {
         setCurrentVehicule(e)
     }
 
+    const handleShowLogement = (e) => {
+        drawer.onOpen()
+        setCurrentLogement(e)
+    }
+
     return (
         <div>
             <header className='header-admin'>
                 <h1 style={{ color: 'white' }} ><i className="fas fa-tachometer-alt"></i> Taxeau de Bord</h1>
                 <div className=''>
-                    <button className=" view-ac-dash" onClick={handleAccueil}> Aller à l'acceuil</button>
+                    <button style={{padding: '0.5rem'}} className=" view-ac-dash" onClick={handleAccueil}> Aller à l'acceuil</button>
                     <>
                         <Button colorScheme='red' onClick={handleLogout}>
                             Se deconnecter
@@ -318,7 +325,49 @@ export default function DashBoardAdmin() {
                                                     <td>{key.prix}</td>
                                                     <td>{key.disponible}</td>
                                                     <td>
-                                                        <button style={{ padding: "0.5rem" }} className="view"><i className="fas fa-eye"></i> Consulter</button>
+                                                    <>
+                                                            <Button ref={cancelRef} colorScheme='teal' onClick={handleShowLogement.bind(null, key)}>
+                                                            Consulter
+                                                            </Button>
+                                                            <Drawer
+                                                                isOpen={drawer.isOpen}
+                                                                placement='right'
+                                                                size='lg'
+                                                                onClose={drawer.onClose}
+                                                                finalFocusRef={cancelRef}
+                                                            >
+                                                                <DrawerOverlay />
+                                                                <DrawerContent>
+                                                                    <DrawerCloseButton />
+                                                                    <DrawerHeader>Details du logement</DrawerHeader>
+
+                                                                    <DrawerBody>
+                                                                    {
+                                                                        currentLogement && <div className="vehicle-container">
+                                                                        <div className="vehicle-card">
+                                                                            <img src={currentLogement.photoUrl} alt={currentLogement.model} className="currentLogement-image" />
+                                                                            <div className="currentLogement-details">
+                                                                                <h2>{currentLogement.model}</h2>
+                                                                                <p><strong>Nom :</strong> {currentLogement.nom}</p>
+                                                                                <p><strong>Description :</strong> {currentLogement.description}</p>
+                                                                                <p><strong>Prix :</strong> {currentLogement.prix} €</p>
+                                                                                <p><strong>Disponibilite :</strong> {currentLogement.disponible}</p>                                                                                
+                                                                                {  currentLogement && currentLogement.photos[0] && <img className='rounded-top card-img card-img-size' src={`data:image/png;base64,${currentLogement.photos[0]}`} alt={key.nom} />}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    }
+                                                                    </DrawerBody>
+
+                                                                    <DrawerFooter>
+                                                                        <Button variant='outline' mr={3} onClick={drawer.onClose}>
+                                                                            Fermer
+                                                                        </Button>
+                                                                    </DrawerFooter>
+                                                                </DrawerContent>
+                                                            </Drawer>
+                                                        </>
+                                                        {/* <button style={{ padding: "0.5rem" }} className="view"><i className="fas fa-eye"></i> Consulter</button> */}
                                                         {/* <button className="edit"><i className="fas fa-edit"></i> Editer</button> */}
                                                         <Button onClick={handleDeleteResidence.bind(null, key.id)}>Supprimer</Button>
                                                     </td>
