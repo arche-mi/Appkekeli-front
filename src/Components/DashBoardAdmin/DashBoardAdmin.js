@@ -1,15 +1,24 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react'
-import { useLocation,useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './style.css'
+import {
+    Drawer,
+    DrawerBody,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerCloseButton,
+} from '@chakra-ui/react'
 import {
     AlertDialog,
     AlertDialogBody,
     AlertDialogFooter,
     AlertDialogHeader,
-    AlertDialogContent,Button,
-    AlertDialogOverlay,useDisclosure
-  } from '@chakra-ui/react'
+    AlertDialogContent, Button,
+    AlertDialogOverlay, useDisclosure
+} from '@chakra-ui/react'
 import ModalAjoutLogement from "../Modal/ModalAjoutLogement"
 import ModalAjoutVehicule from "../Modal/ModalAjoutVehicule"
 import { ToastContainer, toast } from 'react-toastify';
@@ -17,10 +26,12 @@ import 'react-toastify/dist/ReactToastify.css';  // Assurez-vous d'importer le C
 
 export default function DashBoardAdmin() {
     const { isOpen, onOpen, onClose } = useDisclosure()
-  const cancelRef = React.useRef()
+    const cancelRef = React.useRef()
+    const deleteRef = React.useRef()
     const navigate = useNavigate();  // Hook pour naviguer entre les routes
     const location = useLocation();
-    const [token, setToken]= useState()
+    const [currentVehicule, setCurrentVehicule] = useState()
+    const [token, setToken] = useState()
     const { firstName, role } = location.state || {}; // Récupérer les données passées via navigate
     // État qui gère l'affichage des différentes sections (true = visible, false = caché)
     // const [sections, setSections] = useState({
@@ -41,12 +52,12 @@ export default function DashBoardAdmin() {
     //   const [searchParams] = useSearchParams();
     //   const prenom = searchParams.get('prenom');   // Récupère la valeur du paramètre "prenom"    
 
-    useEffect(() => {        
+    useEffect(() => {
 
-         // Appel initial de la fonction fetch
-         setToken(localStorage.getItem("token"))
-        
-         fetch('http://localhost:8080/residences', {
+        // Appel initial de la fonction fetch
+        setToken(localStorage.getItem("token"))
+
+        fetch('http://localhost:8080/residences', {
             method: 'GET',
             // body: JSON.stringify(json),
             headers: {
@@ -65,37 +76,37 @@ export default function DashBoardAdmin() {
             })
             .catch(error => console.error('Erreur lors de la récupération des données des residences:', error));
 
-            fetch('http://localhost:8080/vehicules', {
-                method: 'GET',
-                // body: JSON.stringify(json),
-                headers: {
-                    // 'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-            }).then(response => response.json())
-                .then((data) => {
-                    setVehicule(data.vehicules)    
-                })
-                .catch(error => console.error('Erreur lors de la récupération des données vehicules:', error));
+        fetch('http://localhost:8080/vehicules', {
+            method: 'GET',
+            // body: JSON.stringify(json),
+            headers: {
+                // 'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+        }).then(response => response.json())
+            .then((data) => {
+                setVehicule(data.vehicules)
+            })
+            .catch(error => console.error('Erreur lors de la récupération des données vehicules:', error));
         // Vérifie si le toast a déjà été affiché
         const hasDisplayedToast = localStorage.getItem('hasDisplayedToast');
 
         // Si le prénom est présent et le toast n'a pas encore été affiché
         if (firstName && role && !hasDisplayedToast) {
-            
+
             toast.success(`Bienvenue, ${role}&nbsp; ${firstName} !`);
             // Met à jour localStorage pour indiquer que le toast a été affiché
             localStorage.setItem('hasDisplayedToast', 'true');
         }
     }, [firstName, role]);
 
-    const handleAccueil =  () =>{
+    const handleAccueil = () => {
         navigate(`/`);
     }
 
     const [logement, setLogement] = useState([]);
     const [vehicule, setVehicule] = useState([]);
-               
+
 
     const handleLogout = () => {
         localStorage.clear()
@@ -114,49 +125,45 @@ export default function DashBoardAdmin() {
         }).then(response => response)
             .then((data) => {
                 console.log(data);
-                
+
                 window.location.reload();
             })
             .catch(error => console.error(error));
     }
 
+    const handleDeleteResidence = (id) => {
+        fetch(`http://localhost:8080/residences/${id}`, {
+            method: 'DELETE',
+            // body: JSON.stringify(json),
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+        }).then(response => response)
+            .then((data) => {
+                console.log(data);
+
+                window.location.reload();
+            })
+            .catch(error => console.error(error));
+    }
+
+    const handleShowVehicule = (e) => {
+        onOpen()
+        setCurrentVehicule(e)
+    }
+
     return (
         <div>
             <header className='header-admin'>
-                <h1 style={{color:'white'}} ><i className="fas fa-tachometer-alt"></i> Taxeau de Bord</h1>
+                <h1 style={{ color: 'white' }} ><i className="fas fa-tachometer-alt"></i> Taxeau de Bord</h1>
                 <div className=''>
                     <button className=" view-ac-dash" onClick={handleAccueil}> Aller à l'acceuil</button>
                     <>
-              <Button colorScheme='red' onClick={onOpen}>
-        Se deconnecter
-      </Button>
-      <AlertDialog
-        isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={onClose}
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent>
-            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-              Deconnection
-            </AlertDialogHeader>
-
-            <AlertDialogBody>
-              Vous allez etre deconnecter. Etes-vous sur de vouloir continuer ?
-            </AlertDialogBody>
-
-            <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose}>
-                Non
-              </Button>
-              <Button colorScheme='red' onClick={handleLogout} ml={3}>
-                Oui
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>  
-              </>  
+                        <Button colorScheme='red' onClick={handleLogout}>
+                            Se deconnecter
+                        </Button>                        
+                    </>
                 </div>
             </header>
 
@@ -192,7 +199,7 @@ export default function DashBoardAdmin() {
                         <h2><i className="fas fa-car-side"></i> Véhicules</h2>
                         <div className='d-flex justify-content-end'>
 
-                            <button className="view" data-bs-toggle="modal" data-bs-target="#ModalAjoutVehicule">
+                            <button style={{ padding: "0.5rem" }} className="view" data-bs-toggle="modal" data-bs-target="#ModalAjoutVehicule">
                                 {/* <i className="fas fa-eye"></i>  */}
                                 Ajouter</button>
                         </div>
@@ -220,7 +227,49 @@ export default function DashBoardAdmin() {
                                                     <td>{key.prix}</td>
                                                     <td>{key.disponible}</td>
                                                     <td>
-                                                        <button className="view"><i className="fas fa-eye"></i> Consulter</button>
+                                                        <>
+                                                            <Button ref={cancelRef} colorScheme='teal' onClick={handleShowVehicule.bind(null, key)}>
+                                                            Consulter
+                                                            </Button>
+                                                            <Drawer
+                                                                isOpen={isOpen}
+                                                                placement='right'
+                                                                size='lg'
+                                                                onClose={onClose}
+                                                                finalFocusRef={cancelRef}
+                                                            >
+                                                                <DrawerOverlay />
+                                                                <DrawerContent>
+                                                                    <DrawerCloseButton />
+                                                                    <DrawerHeader>Details du vehicule</DrawerHeader>
+
+                                                                    <DrawerBody>
+                                                                    {
+                                                                        currentVehicule && <div className="vehicle-container">
+                                                                        <div className="vehicle-card">
+                                                                            <img src={currentVehicule.photoUrl} alt={currentVehicule.model} className="currentVehicule-image" />
+                                                                            <div className="currentVehicule-details">
+                                                                                <h2>{currentVehicule.model}</h2>
+                                                                                <p><strong>Marque :</strong> {currentVehicule.marque}</p>
+                                                                                <p><strong>Model :</strong> {currentVehicule.modele}</p>
+                                                                                <p><strong>Prix :</strong> {currentVehicule.prix} €</p>
+                                                                                <p><strong>Disponibilite :</strong> {currentVehicule.disponible}</p>                                                                                
+                                                                                {  currentVehicule.photos[0] && <img className='rounded-top card-img card-img-size' src={`data:image/png;base64,${currentVehicule.photos[0]}`} alt={key.nom} />}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    }
+                                                                    </DrawerBody>
+
+                                                                    <DrawerFooter>
+                                                                        <Button variant='outline' mr={3} onClick={onClose}>
+                                                                            Fermer
+                                                                        </Button>
+                                                                    </DrawerFooter>
+                                                                </DrawerContent>
+                                                            </Drawer>
+                                                        </>
+                                                        {/* <button style={{ padding: "0.5rem" }} className="view"><i className="fas fa-eye"></i> Consulter</button> */}
                                                         {/* <button className="edit"><i className="fas fa-edit"></i> Editer</button> */}
                                                         <Button onClick={handleDeleteVehicule.bind(null, key.id)}>Supprimer</Button>
                                                     </td>
@@ -241,7 +290,7 @@ export default function DashBoardAdmin() {
 
                         <div className='d-flex justify-content-end'>
 
-                            <button className="view" data-bs-toggle="modal" data-bs-target="#ModalAjoutLogement">
+                            <button style={{ padding: "0.5rem" }} className="view" data-bs-toggle="modal" data-bs-target="#ModalAjoutLogement">
                                 {/* <i className="fas fa-eye"></i>  */}
                                 Ajouter</button>
                         </div>
@@ -269,9 +318,9 @@ export default function DashBoardAdmin() {
                                                     <td>{key.prix}</td>
                                                     <td>{key.disponible}</td>
                                                     <td>
-                                                        <button className="view"><i className="fas fa-eye"></i> Consulter</button>
-                                                        <button className="edit"><i className="fas fa-edit"></i> Editer</button>
-                                                        <button className="delete"><i className="fas fa-trash-alt"></i> Supprimer</button>
+                                                        <button style={{ padding: "0.5rem" }} className="view"><i className="fas fa-eye"></i> Consulter</button>
+                                                        {/* <button className="edit"><i className="fas fa-edit"></i> Editer</button> */}
+                                                        <Button onClick={handleDeleteResidence.bind(null, key.id)}>Supprimer</Button>
                                                     </td>
                                                 </tr>)
                                         })}
@@ -305,9 +354,9 @@ export default function DashBoardAdmin() {
                                         <td>30$</td>
                                         <td>Disponible</td>
                                         <td>
-                                            <button className="view"><i className="fas fa-eye"></i> Consulter</button>
-                                            <button className="edit"><i className="fas fa-edit"></i> Editer</button>
-                                            <button className="delete"><i className="fas fa-trash-alt"></i> Supprimer</button>
+                                            <button style={{ padding: "0.5rem" }} className="view"><i className="fas fa-eye"></i> Consulter</button>
+                                            {/* <button className="edit"><i className="fas fa-edit"></i> Editer</button> */}
+                                            {/* <button className="delete"><i className="fas fa-trash-alt"></i> Supprimer</button> */}
                                         </td>
                                     </tr>
                                 </tbody>
