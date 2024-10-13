@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import DashBoard from '../DashBoardAdmin/DashBoardAdmin'
 import connexion from '../Assets/connexion.svg'
+import { useToast } from '@chakra-ui/react'
 
 function FormConnexion() {
+    const toast = useToast()
     const navigate = useNavigate();  // Hook pour naviguer entre les routes
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -30,7 +32,6 @@ function FormConnexion() {
         }).then(response => response.json())
             .then((data) => {
                 console.log(data)
-                alert("connexion reussi");
                 localStorage.setItem('token', data.token)
                 // console.log(localStorage.getItem("token"));
 
@@ -50,6 +51,18 @@ function FormConnexion() {
                         setPrenom(data.firstName)
                         setprestataireType(data.prestataireType)
 
+                        setIsAuthenticated(true)
+                        toast({
+                            title: 'Connexion reussie',
+                            status: 'info',
+                            duration: 9000,
+                            isClosable: true,
+                          })
+
+                        const timeout = setTimeout(() => {
+                            window.location.replace('http://localhost:3001');
+                        }, 1000);
+
 
                     })
                     .catch(error => console.error('Erreur:', error));
@@ -59,7 +72,7 @@ function FormConnexion() {
 
         //  console.error('Erreur:', error));
 
-        setIsAuthenticated(true)
+      
 
     };
     // console.log(type);
