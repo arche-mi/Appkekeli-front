@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 // import "../Header/header.css"
 import React, { useEffect, useState } from 'react'
 import logo from '../Assets/logo.png'
@@ -11,6 +12,7 @@ import { signal } from "@preact/signals-core";
 function Header({styles,scrollToSection}) {
   const [isAuth, setIsAuth] = useState(false);
   const isAuthenticatedSignal = signal(false);
+
 
   useEffect(() => {
     var token = localStorage.getItem("token")
@@ -45,10 +47,10 @@ function Header({styles,scrollToSection}) {
            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
 
              <li className="nav-item me-5">
-               <a className="nav-link" href="/">Accueil</a>
+               <a className="nav-link" href="#">Accueil</a>
              </li>
              <li className="nav-item me-5">
-               <a className="nav-link" onClick={scrollToSection}>Villes</a>
+               <a className="nav-link" href='/#formCityId'>Villes</a>
              </li>
              <li className="nav-item me-5">
                <a className="nav-link" href="#">Processus reservation</a>
@@ -119,9 +121,11 @@ function Header({styles,scrollToSection}) {
          <Link to='/Inscription' state={{ value: "services" }}><button className="btn btn-primary d-inline-flex align-items-center" type="button">
            Proposer service
          </button></Link>
-         <Link to='/Inscription' state={{ value: "reserver" }}><button className="btn btn-secondary d-inline-flex align-items-center" type="button">
+        {isAuth? <Link to='/profile' state={{ value: "reserver" }}><button className="btn btn-secondary d-inline-flex align-items-center" type="button">
            Reserver
-         </button></Link>
+         </button></Link>:<Link to='/Inscription' state={{ value: "reserver" }}><button className="btn btn-secondary d-inline-flex align-items-center" type="button">
+           Reserver
+         </button></Link>}
        </div>
      </div>
    </div>
