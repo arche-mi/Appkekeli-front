@@ -19,7 +19,7 @@ class App extends Component {
             <Route path="/Villes/:id" element={<SecondPage />} />
             <Route path="/Inscription" element={<Inscription />} />
             <Route path="/Connexion/" element={<Connexion />} />
-            <Route path="/DashBoardAdmin/" element={<DashBoardAdmin />} />
+            <Route path="/DashBoard/" element={<DashBoardAdmin />} />
           </Routes>
         </Router>
 

@@ -37,6 +37,8 @@ export default function Panier() {
                                 <span className="badge bg-primary rounded-pill">3</span>
                             </h4>
 
+                            <p className='p-5'>Package vide</p>
+
                             <ul className="list-group-item mb-3 lh-sm">
                             {userChoices.map((choice, index) => (
                               <li className="list-group-item d-flex justify-content-between" key={index[3]}>

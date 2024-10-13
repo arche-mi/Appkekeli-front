@@ -23,7 +23,7 @@ export default class Villes extends Component {
         <div className="m-auto p-2">
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-md-4 g-3">
 
-            <VillesTemplate  plate src={abidjan}>Abidjan</VillesTemplate>
+            <VillesTemplate src={abidjan}>Abidjan</VillesTemplate>
             <VillesTemplate src={yamoussoukro}>Yamoussoukro</VillesTemplate>
             <VillesTemplate src={bouake}>Bouake</VillesTemplate>
             <VillesTemplate src={daloa}>Daloa</VillesTemplate>

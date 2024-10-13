@@ -2,6 +2,7 @@
 
   /* color of web site */
   --bacground-color:#fff;
+  --bgr-footer: #066648;
   --button-primary-color: #FFA07A;
   --button-primary-color1: #FF9900;
   --primary-color1: #FF9900;
@@ -94,8 +95,11 @@
 .card-img-overlay h1 {
   font-weight: 900!important;
   text-transform: uppercase;
-  font-size: 5rem;
+  font-size: 4.56rem;
 
+}
+.back-color{
+  background-color:var(--bgr-footer); 
 }
 
 .card-img-overlay .indice {
@@ -146,3 +150,9 @@
   width: 100%;
   height: 700px;
 }
+/* .carousel-control-next, .carousel-control-prev{
+  position: absolute;
+  top: 40% !important;
+  bottom: 20% !important;
+  
+} */

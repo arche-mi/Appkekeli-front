@@ -31,7 +31,7 @@ export default function Insrciption() {
                     </h2>
                     <div id="collapseOne" ref={myRef.current} className="accordion-collapse collapse " data-bs-parent="#accordionExample">
                         <div className="accordion-body">
-                            <FormInscriptionReserver state={{type: "typeacteur",acteur: "ACTEURLOGEMENT"}}/>
+                            <FormInscriptionReserver/>
                         </div>
                     </div>
                 </div>

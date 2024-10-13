@@ -3,49 +3,33 @@ import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
 
 function FormInscriptionReserver() {
-    const [nom , setnom] = useState(null)
-    const [prenom , setprenom] = useState(null)
+    const [lastName , setlastName] = useState(null)
+    const [firstName , setfirstName] = useState(null)
     const [email , setemail] = useState(null)
     const [password , setpassword] = useState(null)
-    const [numero , setnumero] = useState(null)
-    const [paysprovenance , setpaysprovenance] = useState(null)
+    const [phone , setphone] = useState(null)
+    const [paysProvenance , setpaysProvenance] = useState(null)
+    const [role] = useState('tourist')
+
 
         const handleSubmit = (event) => {
             event.preventDefault(); // Empêche le rechargement de la page
            
-               var jsonfinal = {}
-                // console.log(json);
-               
-            // const elements = form.elements
-            // console.log(elements)
-            // const nom = elements.value.nom
-            // const prenom = elements.value.prenom
-            // const email = elements.value.email
-            // const numero = elements.value.numero
-            // const paysProvenance = elements.value.paysProvenance
-            // const password = elements.value.password
-            // console.log(nom)
-            // Récupérer les données du formulaire
-        //     const formData = new FormData(form);
-        //    var formDataSet= formData.set(state.type ,state.acteur);
-        //     // Vous pouvez parcourir les paires clé/valeur
-        //     htmlFor (let [key, value] of formData.entries()) {
-        //         console.log(key, value);
-        //     }
+               var json = {lastName, firstName, email, password, phone, paysProvenance, role}
+             
+                console.log(JSON.stringify(json));
+                
 
-            // alert(nom)
-
-            // const API_URL = process.env.REACT_APP_API_URL;
-            // Ou envoyer les données à une API
+            //adresse Nest Js http://localhost:3000/users/signup
              // Permet les requêtes depuis cette origine
-            fetch('http://localhost:3000/users/signup', {
+            fetch('http://localhost:8080/auth/register', {
                 method: 'POST',
-                body: JSON.stringify(jsonfinal),
+                body: JSON.stringify(json),
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            }).then(response => response.json())
-                .then(data => console.log(data))
+            }).then(response => response)
+                .then(data => console.log(data.body))
                 .catch(error => console.error('Erreur:', error));
         };
 
@@ -54,33 +38,28 @@ function FormInscriptionReserver() {
             <div className="">
                 <form onSubmit={handleSubmit}>
                     <div className="form-floating mb-3">
-                        <input type="text" className="form-control" name="nom" id="nom_Reserver" placeholder="" value={nom} onChange={(e)=> setnom(e.target.value)}/>
+                        <input type="text" className="form-control" name="lastName" id="nom_Reserver" placeholder="nom" value={lastName} onChange={(e)=> setlastName(e.target.value)}/>
                         <label htmlFor="floatingInput">Nom</label>
                     </div>
                     <div className="form-floating mb-3">
-                        <input type="text" className="form-control" name="prenom" id="prenom_Reserver" placeholder="" value={prenom} onChange={(e)=>{setprenom(e.target.value)}}/>
+                        <input type="text" className="form-control" name="prenom" id="prenom_Reserver" placeholder="Prenom" value={firstName} onChange={(e)=>{setfirstName(e.target.value)}}/>
                         <label htmlFor="floatingInput">Prenom</label>
                     </div>
                     <div className="form-floating mb-3">
-                        <input type="email" className="form-control" name="email" id="email_Reserver" placeholder="" />
+                        <input type="email" className="form-control" name="email" id="email_Reserver" placeholder="Email" value={email} onChange={(e)=>{setemail(e.target.value)}}/>
                         <label htmlFor="floatingInput">Email</label>
                     </div>
                     <div className="form-floating mb-3">
-                        <input type="tel" className="form-control" name="numero" id="numero_Reserver" placeholder="" />
+                        <input type="tel" className="form-control" name="numero" id="numero_Reserver" placeholder="numero" value={phone} onChange={(e)=>{setphone(e.target.value)}} />
                         <label htmlFor="floatingInput">Numero</label>
                     </div>
                     <div className="form-floating mb-3">
-                        <input type="text" className="form-control" name="pays" id="pays_Reserver" placeholder="" />
+                        <input type="text" className="form-control" name="pays" id="pays_Reserver" placeholder="PaysProvenance" value={paysProvenance} onChange={(e)=>{setpaysProvenance(e.target.value)}}/>
                         <label htmlFor="floatingInput">Pays de provenance</label>
                     </div>
                     <div className="form-floating mb-3">
-                        <input type="password" className="form-control" name="password" id="password_Reserver" placeholder="" />
+                        <input type="password" className="form-control" name="password" id="password_Reserver" placeholder="Password" value={password} onChange={(e)=>{setpassword(e.target.value)}} />
                         <label htmlFor="floatingInput">Password</label>
-                    </div>
-
-                    <div className="form-group" style={{ display: 'none' }}>
-
-                        <input className="form-control" type="text" name='typeacteur' value="ACTEURCLIENT" id="type_Reserver" required />
                     </div>
 
                     <div className="pt-4">
@@ -88,8 +67,9 @@ function FormInscriptionReserver() {
                             <li>
                                 <button type='submit' className='btn btn-primary'>S'inscrire</button>
                             </li>
-                            <li>
-                                <Link className="text-decoration-none" to="/Connexion" style={{color:'#2E865F'}}>Deja inscrit? Se connecter</Link>
+                            <li className='mt-2'>
+                            Deja inscrit?
+                                <Link className="text-decoration-none" to="/Connexion" style={{color:'#2E865F'}}> Se connecter</Link>
                             </li>
                         </ul>
                     </div>

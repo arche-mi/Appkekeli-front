@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 import './header.css'
 
 function Header({styles,scrollToSection}) {
-  console.log(styles)
+  // console.log(styles)
   return (
 
    // <!-- Navbar-->
@@ -40,7 +40,7 @@ function Header({styles,scrollToSection}) {
              </li>
              <li className="nav-item me-5">
                <Link to='/Panier' className='text-decoration-none'><button type="button" className="btn btn-primary btn-primar position-relative">
-                 Package <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+3 <span className="visually-hidden">unread messages</span></span>
+                 Package <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill back-color">+3 <span className="visually-hidden">unread messages</span></span>
                </button></Link>
 
              </li>

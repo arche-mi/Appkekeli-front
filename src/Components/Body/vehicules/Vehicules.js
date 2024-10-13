@@ -1,23 +1,47 @@
 import React from 'react'
 import ModalVehicule from '../../Modal/ModalVehicule'
 
-export default function Vehicules({children,state}) {
+export default function Vehicules({ children, state }) {
 
-  {
-    var showModal = (event) => {
-        var imgSrc1 = document.getElementById('imgsrcVehi1');
-        var imgSrc2 = document.getElementById('imgsrcVehi2');
-        var imgSrc3 = document.getElementById('imgsrcVehi3');
-
-        // Bouton qui a déclenché le modal
-        var button = event.target;
-        console.log(button)
-        imgSrc1.setAttribute("src", state.src1)
-        imgSrc2.setAttribute("src", state.src2)
-        imgSrc3.setAttribute("src", state.src3)
-    }
-}
   
+    var showModal = (event)=> {
+      var imgSrc1 = document.getElementById('imgsrcVehi1');
+      var imgSrc2 = document.getElementById('imgsrcVehi2');
+      var imgSrc3 = document.getElementById('imgsrcVehi3');
+
+      // Bouton qui a déclenché le modal
+      var button = event.target;
+      console.log(button);
+      imgSrc1.setAttribute("src", state.src1);
+      imgSrc2.setAttribute("src", state.src2);
+      imgSrc3.setAttribute("src", state.src3);
+    }
+  
+
+  var HandleMouseOver = (e) => {
+
+    const selectimg = e.target.closest(".carImg").querySelectorAll(".card-img")
+    // console.log(selectimg);
+
+    selectimg.forEach((key) => {
+      // key.filter = "brightness(70%)";
+      key.style.transition = 'all .4s ease-in-out';
+      key.style.transform = 'scale(1.1)';
+    })
+
+  }
+
+  var HandleMouseOut = (e) => {
+    const selectimg = e.target.closest(".carImg").querySelectorAll(".card-img")
+
+    selectimg.forEach((key) => {
+      // key.filter = "brightness(70%)";
+      key.style.removeProperty("filter");
+      key.style.removeProperty("transform");
+    })
+
+  }
+
   return (
     <div className='vehicule'>
       <div className="container">
@@ -31,18 +55,29 @@ export default function Vehicules({children,state}) {
                   <button type="button" data-bs-target={`#Carousel${children}`} data-bs-slide-to="2" aria-label="Slide 3" className=""></button>
                 </div>
                 <div className="carousel-inner" style={{ height: "200px", backgroundSize: "cover" }}>
-                  <div className="carousel-item active">
-                    {/* <svg className="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg> */}
+                  <div className='carImg' onMouseOver={HandleMouseOver} onMouseOut={HandleMouseOut}>
+                    <div className="carousel-item active">
+                      {/* <svg className="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg> */}
+                      {
+                    
+                    state.photos.map((key)=>{
+            // console.log(key.replaceAll("\\","//"));
+            
 
-                    <img className='rounded-top card-img card-img-size' src={state.src1} alt='banco3' width='' height='' style={{filter: "brightness(70%)"}}/>
-                  </div>
-                  <div className="carousel-item">
-                    {/* <svg className="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg> */}
-                    <img className='rounded-top card-img card-img-size' src={state.src2} alt='banco3' width='' height='' style={{filter: "brightness(70%)"}}/>
-                  </div>
-                  <div className="carousel-item">
-                    {/* <svg className="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg> */}
-                    <img className='rounded-top card-img card-img-size' src={state.src3} alt='banco3' width='' height='' style={{filter: "brightness(70%)"}}/>
+                     return <img className='rounded-top card-img card-img-size' src={`data:image/png;base64,${key}`} alt={state.marque} width='' height='' />
+                    //  <img className='rounded-top card-img card-img-size' src={`data:image/png;base64,${key}`} alt={state.nom} />
+                    })
+                  }
+                      
+                    </div>
+                    <div className="carousel-item">
+                      {/* <svg className="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg> */}
+                      <img className='rounded-top card-img card-img-size' src={state.src2} alt='banco3' width='' height='' />
+                    </div>
+                    <div className="carousel-item">
+                      {/* <svg className="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg> */}
+                      <img className='rounded-top card-img card-img-size' src={state.src3} alt='banco3' width='' height='' />
+                    </div>
                   </div>
                 </div>
                 <button className="carousel-control-prev" type="button" data-bs-target={`#Carousel${children}`} data-bs-slide="prev">
@@ -57,18 +92,17 @@ export default function Vehicules({children,state}) {
 
 
               <div className="card-body">
-                <ul className="list-group list-group-flush">
-                  <li className='list-group-item'> Type: Mono space</li>
-                  <li className='list-group-item'>Marque: Peugeot 406</li>
-                  <li className='list-group-item'>nombres palces: 4</li>
-                  <li className='list-group-item'>Prix: 30$</li>
-                  <li className='list-group-item'>Etat: Disponible</li>
+                <ul className="list-group list-group-flush" >
+                  <li className='list-group-item fw-bold text-start'>{state.marque}</li>
+                  <li className='list-group-item fw-bold text-start'> {state.modele}</li>
+                  <li className='list-group-item fw-bold text-start'>{state.prix}</li>
+                  <li className='list-group-item fw-bold text-start'>{state.disponible}</li>
                 </ul>
 
-                <div className="d-flex justify-content-around align-items-center mt-2">
+                <div className="d-flex justify-content-start align-items-center mt-2">
                   {/* <div className="btn-group"> */}
-                  <button type="button" className="btn btn-sm btn-outline-primary">Reserver</button>
-                  <button type="button" className="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#ModalVehicule" onClick={showModal}>Voir plus</button>
+                  <button type="button" className="btn btn-primary m-2">Reserver</button>
+                  <button type="button" className="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#ModalVehicule" onClick={showModal}>Voir plus</button>
                   {/* </div> */}
                 </div>
               </div>
@@ -76,7 +110,7 @@ export default function Vehicules({children,state}) {
           </div>
 
         </div>
-        <ModalVehicule state = {state.value}/>
+        <ModalVehicule state={state.value} />
       </div>
 
 

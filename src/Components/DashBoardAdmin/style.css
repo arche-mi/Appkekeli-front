@@ -45,11 +45,12 @@ body {
   padding: 0;
   box-sizing: border-box;
   font-size: 14px;
+  /* overflow-y: ; */
   font-family: "Roboto";
-  background-color: var(--background-color) !important;
+  background-color: var(--background-color);
 }
 
-header {
+.header-admin {
   /* background-color: var(--bgr-footer); Vert doux */
   background-color: var(--button-secondary-color);
   color: white;
@@ -66,14 +67,14 @@ header {
   z-index: 1000;
 }
 
-header h1 {
+.header-admin h1 {
   margin-left: 20px;
 }
 
 #logout {
-  background-color: var(--button-primary-color1); /* Bleu clair */
-  color: var(--bacground-color);
-  border: none;
+  /* background-color: var(--button-primary-color1); Bleu clair */
+  /* color: var(--bacground-color); */
+  /* border: none; */
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -85,7 +86,7 @@ header h1 {
   opacity: 0.9;
 }
 
-.container {
+.container-admin {
   display: flex;
   margin-top: 80px; /* Pour éviter que le contenu ne passe sous le header */
   /* max-width: inherit !important; */
@@ -99,7 +100,8 @@ header h1 {
   top: 80px;
   bottom: 0;
   left: 0;
-  overflow-y: auto; /* Pour scroller si le contenu dépasse */
+  overflow: auto;
+  scrollbar-width: none;/* Pour scroller si le contenu dépasse */
   /* opacity: 0; */
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   border-right: 1.5px dotted var(--button-secondary-color);
@@ -145,17 +147,19 @@ hr{
   margin-left: 270px; /* Pour décaler le contenu en dehors de la sidebar */
   background-color: var(--bacground-color);
   border-radius: 8px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
-  overflow-y: auto;
+  /* box-shadow: 0 0 15px rgba(0, 0, 0, 0.05); */
+  /* overflow-y: auto; */
+  min-height: 1200px;
+  /* overflow-y: hidden; */
   height: 100vh;
 }
 
-.card {
+.card-section {
   background-color: white;
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.05) */
 }
 
 .card h2 {
@@ -201,6 +205,10 @@ button.view {
 
 button.view:hover {
   background-color: var(--button-secondary-color);
+}
+button.view-ac-dash {
+  background-color: var(--button-primary-color1);
+  color: white;
 }
 
 button.edit {

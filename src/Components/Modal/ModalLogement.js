@@ -24,13 +24,13 @@ export default function ModalLogement({state}) {
                                         </div>
                                         <div className="carousel-inner" >
                                             <div className="carousel-item active">
-                                                <img className='card-img card-img-top card-img-site' id='imgsrcLog1' alt='banco1' width='' height='' style={{ filter: "brightness(70%)" }} />
+                                                <img className='card-img card-img-top card-img-site' id='imgsrcLog1' alt='banco1' width='' height='' />
                                             </div>
                                             <div className="carousel-item">
-                                                <img className='card-img card-img-top card-img-site' id='imgsrcLog2' alt='banco2' width='' height='' style={{ filter: "brightness(70%)" }} />
+                                                <img className='card-img card-img-top card-img-site' id='imgsrcLog2' alt='banco2' width='' height='' />
                                             </div>
                                             <div className="carousel-item">
-                                                <img className='card-img card-img-top card-img-site' id='imgsrcLog3' alt='banco2' width='' height='' style={{ filter: "brightness(70%)" }} />
+                                                <img className='card-img card-img-top card-img-site' id='imgsrcLog3' alt='banco2' width='' height='' />
                                             </div>
                                         </div>
                                         <button className="carousel-control-prev" type="button" data-bs-target={`#Modal${state}`} data-bs-slide="prev">
@@ -47,22 +47,22 @@ export default function ModalLogement({state}) {
                                     {/* <img src={Banco3} className="card-img-top card-img-site" alt="..." /> */}
                                     <div className="card-body">
                                         <h5 className="card-title">PARC NATIONAL DU BANCO</h5>
-                                        <p className="card-text">Le parc national du Banco est un parc national de la Côte d'Ivoire situé en plein cœur d'Abidjan. « Banco » est une déformation du mot Ebrié * « Gbancô » et signifie « source d’eau rafraichissante »</p>
+                                        <p className="card-text text-start">Le parc national du Banco est un parc national de la Côte d'Ivoire situé en plein cœur d'Abidjan. « Banco » est une déformation du mot Ebrié * « Gbancô » et signifie « source d’eau rafraichissante »</p>
                                         <div className="card-text">
                                             <ul className="list-group list-group-flush">
-                                                <li className="list-group-item">Adresse : 9WVX+72R, Abidjan</li>
-                                                <li className="list-group-item">Superficie : 30 km²</li>
-                                                <li className="list-group-item">Date de création : 1953</li>
-                                                <li className="list-group-item">Téléphone : 22414059</li>
-                                                <li className="list-group-item">Coordonnées : 5° 23′ 40″ N, 4° 03′ 07″ O</li>
-                                                <li className="list-group-item">District : Abidjan</li>
+                                                <li className="list-group text-start">Adresse : 9WVX+72R, Abidjan</li>
+                                                <li className="list-group text-start">Superficie : 30 km²</li>
+                                                <li className="list-group text-start">Date de création : 1953</li>
+                                                <li className="list-group text-start">Téléphone : 22414059</li>
+                                                <li className="list-group text-start">Coordonnées : 5° 23′ 40″ N, 4° 03′ 07″ O</li>
+                                                <li className="list-group text-start">District : Abidjan</li>
                                             </ul>
                                         </div>
                                         <p className="card-text"></p>
                                         <p className="card-text"><small className="text-body-secondary">Last updated 3 mins ago</small></p>
                                     </div>
                                 </div>
-                                <div className='d-flex justify-content-around'>
+                                <div className='d-flex justify-content-end'>
                                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
                                     <button type="button" className="btn btn-primary">Reserver</button>
                                 </div>
