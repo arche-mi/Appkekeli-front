@@ -56,7 +56,7 @@ function FormConnexion() {
                             status: 'info',
                             duration: 9000,
                             isClosable: true,
-                          })                        
+                          })                                                  
                     })
                     .catch(error => console.error('Erreur:', error));
 
@@ -78,7 +78,7 @@ function FormConnexion() {
         //  return <DashBoard state={"firstName":prenom}/>
         navigate('/DashBoard',  { state: {"firstName":prenom, "role": role,"type": prestataireType}});  // Remplacer par le composant à afficher après la connexion
     }else if (role === 'tourist') {
-        navigate(`/?profile`);
+        navigate(`/profile`);
     }
     
     return (

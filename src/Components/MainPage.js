@@ -9,9 +9,22 @@ import 'react-toastify/dist/ReactToastify.css';  // Assurez-vous d'importer le C
 // // import DashBoardAdmin from './DashBoardAdmin/DashBoardAdmin';
 // import DashBoardPrestataire from './DashBoardPrestataire/DashBoardPrestataire';
 
+import { signal } from "@preact/signals-core";
+
 
 export default function MainPage() {
   const targetRef = useRef(null);
+  const isAuthenticatedSignal = signal(false);
+
+
+  useEffect(() => {
+    setInterval(function() {
+      var token = localStorage.getItem("token")
+      if (token!==undefined) {
+        isAuthenticatedSignal.value = true
+      }
+    }, 1000);
+  }, [isAuthenticatedSignal]);
 
   
 //Gerer le toats
@@ -42,7 +55,7 @@ export default function MainPage() {
   };
   return (
     <div>
-      <Header scrollToSection={scrollToSection}/>
+      <Header scrollToSection={scrollToSection} isAuthenticated={isAuthenticatedSignal}/>
       <Villes targetRef={targetRef}/>
       <Contact/>  
       <Footer/>

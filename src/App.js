@@ -9,8 +9,8 @@ import Profile from './Components/Profile.js';
 import PanierPage from './Components/PanierPage.js';
 import DashBoardAdmin from './Components/DashBoardAdmin/DashBoardAdmin.js'
 
-
 class App extends Component {
+  
   render() {
     return (
       <div className="App">

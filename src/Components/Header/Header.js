@@ -6,16 +6,25 @@ import vue_drone from '../Assets/vue_drone.jpg'
 import parc_exposition from '../Assets/parc_exposition.jpg'
 import { Link } from 'react-router-dom'
 import './header.css'
+import { signal } from "@preact/signals-core";
 
 function Header({styles,scrollToSection}) {
   const [isAuth, setIsAuth] = useState(false);
+  const isAuthenticatedSignal = signal(false);
 
   useEffect(() => {
     var token = localStorage.getItem("token")
-    if (token!==undefined) {
-      setIsAuth(true)
+    setInterval(function() {
+      if (token!==null) {
+        setIsAuth(true)
+      }
+    }, 500);
+
+    if (isAuthenticatedSignal) {
+      clearInterval()
     }
-  }, []);
+    
+  }, [isAuthenticatedSignal]);
 
   // console.log(styles)
   return (

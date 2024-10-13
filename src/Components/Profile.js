@@ -3,8 +3,22 @@ import Header from './Header/Header'
 import Footer from './Footer/Footer'
 import './profile.css'
 import { useState } from 'react'
+import { Button, Flex} from '@chakra-ui/react'
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,useDisclosure
+} from '@chakra-ui/react'
+import { Link, useNavigate } from 'react-router-dom'
 
-export default function Profile() {
+
+export default function Profile({isAuthenticated}) {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const cancelRef = React.useRef()
+  const navigate = useNavigate(); 
 
   const [user, setUser] = useState({})
 
@@ -19,11 +33,17 @@ export default function Profile() {
       },
   }).then(response => response.json())
       .then((data) => {
-        setUser(data)
+        setUser(data)        
       })
       .catch(error => console.error('Erreur:', error));
   
   }, []) 
+
+  const handleLogout = () => {
+    localStorage.clear()
+    onClose()
+    navigate(`/`);
+};
 
   return (
     <>
@@ -43,10 +63,41 @@ export default function Profile() {
                     <strong>Email :</strong>
                     <span>{user.email}</span>
                 </div>
-                <div className="profile-item">
+                <div className="profile-item last">
                     <strong>Téléphone :</strong>
                     <span>{user.phone}</span>
-                </div>                
+                </div>     
+              <>
+              <Button colorScheme='red' onClick={onOpen}>
+        Se deconnecter
+      </Button>
+      <AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+              Deconnection
+            </AlertDialogHeader>
+
+            <AlertDialogBody>
+              Vous allez etre deconnecter. Etes-vous sur de vouloir continuer ?
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                Non
+              </Button>
+              <Button colorScheme='red' onClick={handleLogout} ml={3}>
+                Oui
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>  
+              </>          
             </div>
         </div>
       <Footer/>
