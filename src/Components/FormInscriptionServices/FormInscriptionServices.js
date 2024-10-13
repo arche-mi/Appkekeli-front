@@ -52,6 +52,7 @@ function FormInscriptionServices() {
         }).then(response => response)
             .then((data) => {
                 console.log(data)
+                window.location.replace('http://localhost:3001/Connexion');
             })
             .catch(error => console.error('Erreur:', error));
     };
