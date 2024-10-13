@@ -87,6 +87,7 @@ export default function Restaurant({ children, state }) {
                                 <p className="card-text" style={{ fontWeight: "600", textTransform: "capitalize" }}>parc national du banco </p>
                                 <div className="d-flex justify-content-between align-items-center">
                                     <div className="btn-group">
+                                    <a  href={`reservation_restaurant`}><button type="button" className="btn btn-secondary"  style={{ color: "black!important", background:"teal"}}>Reserver</button></a>
                                         <button type="button" className="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#ModalRestaurant" onClick={showModal}>Voir plus</button>
                                     </div>
                                     <i className="bi bi-heart"> 9 j'aime</i>

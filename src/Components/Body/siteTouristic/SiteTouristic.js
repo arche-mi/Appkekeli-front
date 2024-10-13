@@ -1,6 +1,6 @@
 import React from 'react'
 import ModalSiteTouristic from '../../Modal/ModalSiteTouristic'
-
+import {  Button } from '@chakra-ui/react'
 export default function SiteTouristic({ children, state }) {
   console.log(state.value)
   {
@@ -86,6 +86,8 @@ export default function SiteTouristic({ children, state }) {
                 <p className="card-text" style={{ fontWeight: "600", textTransform: "capitalize" }}>parc national du banco</p>
                 <div className="d-flex justify-content-between align-items-center">
                   <div className="btn-group">
+                    
+                    <a  href={`reservation_site`}><button type="button" className="btn btn-secondary"  style={{ color: "black!important", background:"teal"}}>Reserver</button></a>
                     <button type="button" className="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#ModalSiteTouristic" onClick={showModal} style={{ color: "black!important" }}>Voir plus</button>
                   </div>
                   <i className="bi bi-heart"> 9 j'aime</i>

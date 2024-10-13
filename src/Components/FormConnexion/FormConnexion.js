@@ -49,14 +49,24 @@ function FormConnexion() {
                         setrole(data.role)
                         setPrenom(data.firstName)
                         setprestataireType(data.prestataireType)
-
-                        setIsAuthenticated(true)
-                        toast({
-                            title: 'Connexion reussie',
-                            status: 'info',
-                            duration: 9000,
-                            isClosable: true,
-                          })                                                  
+                        
+                        if (data.error !==undefined) {                                                           
+                            setIsAuthenticated(false)
+                            toast({
+                                title: 'Email ou mot de passe incorrect',
+                                status: 'error',
+                                duration: 9000,
+                                isClosable: true,
+                            })                                               
+                        } else {
+                            setIsAuthenticated(true)
+                            toast({
+                                title: 'Connexion reussie',
+                                status: 'info',
+                                duration: 9000,
+                                isClosable: true,
+                            }) 
+                        }
                     })
                     .catch(error => console.error('Erreur:', error));
 
