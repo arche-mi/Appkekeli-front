@@ -1,5 +1,5 @@
 // import "../Header/header.css"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import logo from '../Assets/logo.png'
 import background_img from '../Assets/img-header.jpg'
 import vue_drone from '../Assets/vue_drone.jpg'
@@ -8,6 +8,15 @@ import { Link } from 'react-router-dom'
 import './header.css'
 
 function Header({styles,scrollToSection}) {
+  const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    var token = localStorage.getItem("token")
+    if (token!==undefined) {
+      setIsAuth(true)
+    }
+  }, []);
+
   // console.log(styles)
   return (
 
@@ -46,8 +55,14 @@ function Header({styles,scrollToSection}) {
              </li>
 
            </ul>
-           <button className="btn btn-secondary me-2" type="button"><Link to='/Inscription' className="text-decoration-none text-reset">S'inscrire</Link></button>
-           <button className="btn btn-secondary" type="button"><Link to='/Connexion' className="text-decoration-none text-reset">Se connecter</Link></button>
+        {
+          isAuth? <>
+            <button className="btn btn-secondary" type="button"><Link to='/profile' className="text-decoration-none text-reset">Profile</Link></button>
+          </> : <>
+            <button className="btn btn-secondary me-2" type="button"><Link to='/Inscription' className="text-decoration-none text-reset">S'inscrire</Link></button>
+            <button className="btn btn-secondary" type="button"><Link to='/Connexion' className="text-decoration-none text-reset">Se connecter</Link></button>
+          </>
+        }
          </div>
        </div>
      </div>

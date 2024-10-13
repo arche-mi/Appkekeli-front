@@ -13,7 +13,6 @@ function FormConnexion() {
     const [prenom, setPrenom] = useState('');
     const [prestataireType, setprestataireType] = useState('');
     const [isAuthenticated, setIsAuthenticated] = useState(false);  // Pour suivre l'état de la connexion
-    const [error, setError] = useState(null);  // Pour gérer les erreurs éventuelles
 
     const handleSubmit = (event) => {
         event.preventDefault(); // Empêche le rechargement de la page
@@ -57,13 +56,7 @@ function FormConnexion() {
                             status: 'info',
                             duration: 9000,
                             isClosable: true,
-                          })
-
-                        const timeout = setTimeout(() => {
-                            window.location.replace('http://localhost:3001');
-                        }, 1000);
-
-
+                          })                        
                     })
                     .catch(error => console.error('Erreur:', error));
 
@@ -85,7 +78,7 @@ function FormConnexion() {
         //  return <DashBoard state={"firstName":prenom}/>
         navigate('/DashBoard',  { state: {"firstName":prenom, "role": role,"type": prestataireType}});  // Remplacer par le composant à afficher après la connexion
     }else if (role === 'tourist') {
-        navigate(`/?prenom=${prenom}`);
+        navigate(`/?profile`);
     }
     
     return (
