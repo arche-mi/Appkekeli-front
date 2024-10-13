@@ -47,13 +47,13 @@ function Header({styles,scrollToSection}) {
            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
 
              <li className="nav-item me-5">
-               <a className="nav-link" href="#">Accueil</a>
+               <a className="nav-link" href="/#">Accueil</a>
              </li>
              <li className="nav-item me-5">
                <a className="nav-link" href='/#formCityId'>Villes</a>
              </li>
              <li className="nav-item me-5">
-               <a className="nav-link" href="#">Processus reservation</a>
+               <a className="nav-link" href="/#">Processus reservation</a>
              </li>
              <li className="nav-item me-5">
                <a className="nav-link" href="/#formContactId">Contact</a>
@@ -118,14 +118,17 @@ function Header({styles,scrollToSection}) {
        </div> */}
 
        <div className="d-flex w-100 flex-row align-items-center justify-content-center gap-3 mt-5">
+         
+        {isAuth? <a href='/#formCityId' state={{ value: "reserver" }}><button className="btn btn-secondary d-inline-flex align-items-center" type="button">
+           Reserver
+         </button></a>:<>
          <Link to='/Inscription' state={{ value: "services" }}><button className="btn btn-primary d-inline-flex align-items-center" type="button">
            Proposer service
          </button></Link>
-        {isAuth? <Link to='/profile' state={{ value: "reserver" }}><button className="btn btn-secondary d-inline-flex align-items-center" type="button">
+         <Link to='/Inscription' state={{ value: "reserver" }}><button className="btn btn-secondary d-inline-flex align-items-center" type="button">
            Reserver
-         </button></Link>:<Link to='/Inscription' state={{ value: "reserver" }}><button className="btn btn-secondary d-inline-flex align-items-center" type="button">
-           Reserver
-         </button></Link>}
+         </button></Link>
+         </>}
        </div>
      </div>
    </div>

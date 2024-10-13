@@ -8,6 +8,10 @@ import Connexion from './Components/Connexion.js';
 import Profile from './Components/Profile.js';
 import PanierPage from './Components/PanierPage.js';
 import DashBoardAdmin from './Components/DashBoardAdmin/DashBoardAdmin.js'
+import InitialFocus from './Components/FormInfosReservation/FormInfosReservationSite.js';
+import FormInfosReservationSite from './Components/FormInfosReservation/FormInfosReservationSite.js';
+import FormInfosReservationRestaurant from './Components/FormInfosReservation/FormInfosReservationRestaurant.js';
+import FormInfosReservationLogement from './Components/FormInfosReservation/FormInfosReservationLogement.js';
 
 class App extends Component {
   
@@ -19,6 +23,9 @@ class App extends Component {
             <Route path="/" element={<MainPage />} />
             <Route path="/Panier" element={<PanierPage />} />
             <Route path="/Villes/:id" element={<SecondPage />} />
+            <Route path="/Villes/reservation_site" element={<FormInfosReservationSite/>} />
+            <Route path="/Villes/reservation_restaurant" element={<FormInfosReservationRestaurant/>} />
+            <Route path="/Villes/reservation_logement" element={<FormInfosReservationLogement/>} />
             <Route path="/Inscription" element={<Inscription />} />
             <Route path="/Connexion/" element={<Connexion />} />
             <Route path="/profile/" element={<Profile />} />

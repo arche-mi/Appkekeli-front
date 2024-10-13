@@ -38,7 +38,7 @@ export default function VillesTemplate({ children, src }) {
                 <h5 className="img-title" style={{ position: "absolute", fontWeight:"600", fontSize:"1.5rem", top: "40%", left: "50%", transform: "translate(-50%, -50%)", color: "white", display: "none" }}>{children}</h5>
                 <div className="card-body flex-row" style={{ position: "absolute", width:"100%",top: "70%", left: "50%", transform: "translate(-50%, -50%)", display: "none" }}>
                     <Link to={`/Villes/${children}`} className="btn btn-primary m-2" >Voir services</Link>
-                    <Link to={`/Villes/`} className="btn btn-secondary">Voir plus</Link>
+                    <Link to={`/Villes/${children}`} className="btn btn-secondary">Voir plus</Link>
                 </div>
             </div>
 
