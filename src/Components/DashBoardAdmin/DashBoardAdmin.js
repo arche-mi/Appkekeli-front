@@ -21,6 +21,7 @@ import {
 } from '@chakra-ui/react'
 import ModalAjoutLogement from "../Modal/ModalAjoutLogement"
 import ModalAjoutVehicule from "../Modal/ModalAjoutVehicule"
+import PieChart from "./StatsPieChart"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';  // Assurez-vous d'importer le CSS de react-toastify
 
@@ -34,55 +35,26 @@ export default function DashBoardAdmin() {
     const [currentLogement, setCurrentLogement] = useState()
     const [token, setToken] = useState()
     const drawer = useDisclosure()
-    const { firstName, role } = location.state || {}; // Récupérer les données passées via navigate
-    // État qui gère l'affichage des différentes sections (true = visible, false = caché)
-    // const [sections, setSections] = useState({
-    //     section1: false,
-    //     section2: false,
-    //     section3: false,
-    // });
-
-    // // Fonction pour afficher ou cacher une section indépendamment
-    // const toggleSection = (section) => {
-    //     setSections((prevSections) => ({
-    //         ...prevSections,
-    //         [section]: !prevSections[section], // Inverse l'état de la section cliquée
-    //     }));
-    // };
-
-    //Gerer le toats
-    //   const [searchParams] = useSearchParams();
-    //   const prenom = searchParams.get('prenom');   // Récupère la valeur du paramètre "prenom"    
+    const { firstName, role } = location.state || {}; // Récupérer les données passées via navigate       
 
     useEffect(() => {
-
-        // Appel initial de la fonction fetch
         setToken(localStorage.getItem("token"))
 
         fetch('http://localhost:8080/residences', {
             method: 'GET',
-            // body: JSON.stringify(json),
             headers: {
-                // 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
         }).then(response => response.json())
             .then((data) => {
                 console.log(data.residences)
                 setLogement(data.residences)
-                // setrole(data.role)
-                // setPrenom(data.firstName)
-                // setprestataireType(data.prestataireType)
-
-
             })
             .catch(error => console.error('Erreur lors de la récupération des données des residences:', error));
 
         fetch('http://localhost:8080/vehicules', {
             method: 'GET',
-            // body: JSON.stringify(json),
             headers: {
-                // 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
         }).then(response => response.json())
@@ -90,25 +62,14 @@ export default function DashBoardAdmin() {
                 setVehicule(data.vehicules)
             })
             .catch(error => console.error('Erreur lors de la récupération des données vehicules:', error));
-        // Vérifie si le toast a déjà été affiché
         const hasDisplayedToast = localStorage.getItem('hasDisplayedToast');
-
-        // Si le prénom est présent et le toast n'a pas encore été affiché
         if (firstName && role && !hasDisplayedToast) {
-
             toast.success(`Bienvenue, ${role}&nbsp; ${firstName} !`);
-            // Met à jour localStorage pour indiquer que le toast a été affiché
             localStorage.setItem('hasDisplayedToast', 'true');
         }
-    }, [firstName, role]);
-
-    const handleAccueil = () => {
-        navigate(`/`);
-    }
-
+    }, [firstName, role]);    
     const [logement, setLogement] = useState([]);
     const [vehicule, setVehicule] = useState([]);
-
 
     const handleLogout = () => {
         localStorage.clear()
@@ -159,12 +120,28 @@ export default function DashBoardAdmin() {
         drawer.onOpen()
         setCurrentLogement(e)
     }
+  
+
+      const data = {
+        labels: ["Vehicule", "Logement"],
+        datasets: [
+          {
+            data: [vehicule.length, logement.length],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+            ],
+            borderWidth: 1,
+          },
+        ],
+      };
 
     return (
         <div>
             <header className='header-admin'>
                 <h1 style={{ color: 'white' }} ><i className="fas fa-tachometer-alt"></i> Tableau de Bord</h1>
                 <div className=''>
+                    {/* <button style={{padding: '0.5rem'}} className=" view-ac-dash" onClick={handleAccueil}> Aller à l'acceuil</button> */}
                     <>
                         <Button colorScheme='red' onClick={handleLogout}>
                             Se deconnecter
@@ -176,27 +153,20 @@ export default function DashBoardAdmin() {
             <div className="container container-admin">
                 <aside className="sidebar">
                     <ul>
-                        <li><a href="#"><i className="fas fa-user-cog"></i> Gérer les comptes</a></li>
+                        <li><a style={{textAlign:'left'}} href="#"><i className="fas fa-user-cog"></i> Gérer les comptes</a></li>
                         <hr />
-                        <li><a href="#"><i className="fas fa-file-signature"></i> Gérer les demandes d'inscription des prestataires</a></li>
+                        <li><a style={{textAlign:'left'}} href="#"><i className="fas fa-file-signature"></i> Gérer les demandes d'inscription des prestataires</a></li>
                         <hr />
-                        <li ><a href="#"><i className="fas fa-car"></i> Gérer les véhicules</a></li>
-                        <hr />
-                        {/* onClick={() => toggleSection('vehicule')} */}
-                        <li ><a href="#"><i className="fas fa-home"></i> Gérer les logements</a></li>
-                        <hr />
-                        {/* onClick={() => toggleSection('logement')} */}
-                        <li ><a href="#"><i className="fas fa-users"></i> Consulter les statistiques</a></li>
-                        <hr />
-                        {/* onClick={() => toggleSection('statistique')} */}
-                        <li><a href="#"><i className="fas fa-cogs"></i> Gérer les avis</a></li>
+                        <li><a style={{textAlign:'left'}} href="#"><i className="fas fa-cogs"></i> Gérer les avis</a></li>
                     </ul>
                 </aside>
 
                 <main className="dashboard">
 
                     <div>
-                        <h3>Statistiques</h3>
+                        <br />
+                        <br />
+                        <h1>Statistiques</h1>
                         <p>Ici sont affichées les statistiques de vos logements...</p>
                     </div>
 
@@ -227,7 +197,7 @@ export default function DashBoardAdmin() {
                                         vehicule.map((key, index) => {
                                             return (
                                                 <tr>
-                                                    <td>{index}</td>
+                                                    <td>{index+1}</td>
                                                     <td>{key.marque}</td>
                                                     <td>{key.modele}</td>
                                                     <td>{key.prix}</td>
@@ -315,10 +285,10 @@ export default function DashBoardAdmin() {
                                 </thead>
                                 <tbody>
                                     {
-                                        logement.map((key) => {
+                                        logement.map((key, index) => {
                                             return (
                                                 <tr>
-                                                    <td></td>
+                                                    <td>{index+1}</td>
                                                     <td>{key.nom}</td>
                                                     <td>{key.description} </td>
                                                     <td>{key.prix}</td>
@@ -382,35 +352,9 @@ export default function DashBoardAdmin() {
                     {/* {sections.statistique && ( */}
                     <section className="card">
                         <h2><i className="fas fa-building"></i> Statistiques</h2>
-                        <div className="table-responsive">
-                            <table className='table'>
-                                <thead>
-                                    <tr>
-                                        <th>Numéro</th>
-                                        <th>réservations</th>
-                                        <th>Revenus générés</th>
-                                        <th>Origine</th>
-                                        <th>Disponibilité</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Residence</td>
-                                        <td>3chambres salon</td>
-                                        <td>30$</td>
-                                        <td>Disponible</td>
-                                        <td>
-                                            <button style={{ padding: "0.5rem" }} className="view"><i className="fas fa-eye"></i> Consulter</button>
-                                            {/* <button className="edit"><i className="fas fa-edit"></i> Editer</button> */}
-                                            {/* <button className="delete"><i className="fas fa-trash-alt"></i> Supprimer</button> */}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        {/* <ModalAjoutLogement /> */}
+                        <br />
+                        <PieChart data={data} />                                           
+                        <br style={{marginBottom:'400px'}} />
                     </section>
                     {/* )} */}
                 </main>
@@ -419,7 +363,6 @@ export default function DashBoardAdmin() {
             <footer className='foot-dashboard'>
                 <p>&copy; 2024 - {role}&nbsp;{firstName} Dashboard</p>
             </footer>
-            <ToastContainer position="top-left" autoClose={1500} hideProgressBar={true} />
         </div>
     )
 }
