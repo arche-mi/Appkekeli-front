@@ -32,29 +32,10 @@ export default function DashBoardAdmin() {
     //   const prenom = searchParams.get('prenom');   // Récupère la valeur du paramètre "prenom"
 
     useEffect(() => {
-        // Vérifie si le toast a déjà été affiché
-        const hasDisplayedToast = localStorage.getItem('hasDisplayedToast');
 
-        // Si le prénom est présent et le toast n'a pas encore été affiché
-        if (firstName && role && !hasDisplayedToast) {
-            
-            toast.success(`Bienvenue, ${role}&nbsp; ${firstName} !`);
-            // Met à jour localStorage pour indiquer que le toast a été affiché
-            localStorage.setItem('hasDisplayedToast', 'true');
-        }
-    }, [firstName, role]);
-
-    const handleAccueil =  () =>{
-
-        navigate(`/`);
-    }
-
-    const [logement, setLogement] = useState([]);
-    const [vehicule, setVehicule] = useState([]);
+         // Appel initial de la fonction fetch
         
-        // Appel initial de la fonction fetch
-        
-        fetch('http://localhost:8080/residences', {
+         fetch('http://localhost:8080/residences', {
             method: 'GET',
             // body: JSON.stringify(json),
             headers: {
@@ -87,6 +68,27 @@ export default function DashBoardAdmin() {
     
                 })
                 .catch(error => console.error('Erreur lors de la récupération des données vehicules:', error));
+        // Vérifie si le toast a déjà été affiché
+        const hasDisplayedToast = localStorage.getItem('hasDisplayedToast');
+
+        // Si le prénom est présent et le toast n'a pas encore été affiché
+        if (firstName && role && !hasDisplayedToast) {
+            
+            toast.success(`Bienvenue, ${role}&nbsp; ${firstName} !`);
+            // Met à jour localStorage pour indiquer que le toast a été affiché
+            localStorage.setItem('hasDisplayedToast', 'true');
+        }
+    }, [firstName, role]);
+
+    const handleAccueil =  () =>{
+
+        navigate(`/`);
+    }
+
+    const [logement, setLogement] = useState([]);
+    const [vehicule, setVehicule] = useState([]);
+        
+       
     
 
 
@@ -98,7 +100,7 @@ export default function DashBoardAdmin() {
     return (
         <div>
             <header className='header-admin'>
-                <h1><i className="fas fa-tachometer-alt"></i> Tableau de Bord</h1>
+                <h1 style={{color:'white'}} ><i className="fas fa-tachometer-alt"></i> Taxeau de Bord</h1>
                 <div className=''>
                     <button className=" view-ac-dash" onClick={handleAccueil}> Aller à l'acceuil</button>
                     <button id="logout" className='btn btn-secondary'><i className="fas fa-sign-out-alt"></i> Se déconnecter</button>
@@ -156,10 +158,10 @@ export default function DashBoardAdmin() {
                                 <tbody>
                                     {
 
-                                        vehicule.map((key) => {
+                                        vehicule.map((key, index) => {
                                             return (
                                                 <tr>
-                                                    <td></td>
+                                                    <td>{index}</td>
                                                     <td>{key.marque}</td>
                                                     <td>{key.modele}</td>
                                                     <td>{key.prix}</td>

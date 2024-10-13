@@ -75,9 +75,10 @@ export default function ModalPaiement() {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
         },
-    }).then(response => response.json())
+    }).then(response => response)
         .then((data) => {
             console.log(data)
+            window.location.replace('http://localhost:3001/DashBoard');
             // setrole(data.role)
             // setPrenom(data.firstName)
             // setprestataireType(data.prestataireType)
