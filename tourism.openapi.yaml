@@ -1,0 +1,708 @@
+openapi: 3.0.2
+info:
+    title: API de Gestion Touristique
+    version: 1.0.0
+    description: >-
+        Une plateforme de gestion touristique permettant aux touristes de réserver des véhicules et des résidences,
+        aux prestataires de services de gérer leurs offres, et aux administrateurs de gérer l'ensemble du système.
+    contact:
+        name: Votre Nom
+        email: votre.email@example.com
+    license:
+        name: MIT License
+        url: 'https://opensource.org/licenses/MIT'
+
+servers:
+    - url: 'http://localhost:8080'
+      description: Serveur de développement
+
+components:
+    schemas:
+        APIError:
+            type: object
+            properties:
+                error:
+                    type: object
+                    properties:
+                        devMessage:
+                            type: string
+                        userFriendlyMessage:
+                            type: string
+        User:
+            type: object
+            required:
+                - email
+                - password
+                - firstName
+                - lastName
+                - phone
+            properties:
+                id:
+                    type: string
+                email:
+                    type: string
+                    format: email
+                password:
+                    type: string
+                firstName:
+                    type: string
+                lastName:
+                    type: string
+                phone:
+                    type: string
+                paysProvenance:
+                    type: string
+                ville:
+                    type: string
+                commune:
+                    type: string
+                role:
+                    type: string
+                    enum:
+                        - tourist
+                        - prestataire
+                        - admin
+                prestataireType:
+                    type: array
+                    items:
+                        type: string
+                    
+
+        Tourist:
+            allOf:
+                - $ref: '#/components/schemas/User'
+                - type: object
+                  required:
+                      - paysProvenance
+                  properties:
+                      paysProvenance:
+                          type: string
+
+        Prestataire:
+            allOf:
+                - $ref: '#/components/schemas/User'
+                - type: object
+                  required:
+                      - ville
+                      - commune
+                  properties:
+                      ville:
+                           type: string
+                      commune:
+                          type: string
+
+        Residence:
+            type: object
+            required:
+                - nom
+                - description
+                - prix
+                - disponible
+            properties:
+                id:
+                    type: string
+                nom:
+                    type: string
+                description:
+                    type: string
+                prix:
+                    type: string
+                villeId:
+                    type: integer
+                disponible:
+                    type: boolean
+                prestataireId:
+                    type: string
+                photos:
+                    type: array
+                    items:
+                        type: string
+
+        Vehicule:
+            type: object
+            required:
+                - marque
+                - modele
+                - prix
+                - disponible
+            properties:
+                id:
+                    type: string
+                marque:
+                    type: string
+                modele:
+                    type: string
+                prix:
+                    type: string
+                villeId:
+                    type: integer
+                disponible:
+                    type: boolean
+                prestataireId:
+                    type: string
+                photos:
+                    type: array
+                    items:
+                        type: string
+
+        Reservation:
+            type: object
+            required:
+                - dateDebut
+                - dateFin
+                - vehicules
+                # - restaurants
+                - residences
+                # - sites
+            properties:
+                vehicules:
+                    type: array
+                    items: 
+                        $ref: "#/components/schemas/Vehicule"
+                residences:
+                    type: array
+                    items: 
+                        $ref: "#/components/schemas/Residence"
+                # - restaurants
+                # - residences
+                # - sites
+                id:
+                    type: string
+                dateDebut:
+                    type: string
+                    
+                dateFin:
+                    type: string
+                status:
+                    type: string
+                    enum:
+                        - inCart
+                        - paid
+                        - cancel
+
+        Feedback:
+            type: object
+            required:
+                - commentaire
+            properties:
+                id:
+                    type: string
+                commentaire:
+                    type: string           
+
+        LoginRequest:
+            type: object
+            required:
+                - email
+                - password
+            properties:
+                email:
+                    type: string
+                    format: email
+                password:
+                    type: string
+
+        FullFeedback:
+            type: object
+            properties:
+                feedbacks:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Feedback'
+        
+        FullVehicule:
+            type: object
+            properties:
+                vehicules:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Vehicule'
+        
+        FullResidence:
+            type: object
+            properties:
+                residences:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Residence'
+
+        FullReservation:
+            type: object
+            properties:
+                package:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Reservation'
+
+        JWTResponse:
+            type: object
+            required:
+                - token
+            properties:
+                token:
+                    type: string
+    securitySchemes:
+        auth_token:
+            scheme: bearer
+            type: http
+
+    responses:
+        NotFound:
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/APIError'
+            description: Resource not found
+        InternalServerError:
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/APIError'
+            description: Internal server error
+
+        BadRequest:
+            description: Requête invalide
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/APIError'
+
+        Unauthorized:
+            description: Non autorisé
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/APIError'      
+
+paths:    
+    /profile:
+        get:
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:                                
+                                $ref: '#/components/schemas/User'
+                    description: Successfully retrieved projects
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '500':
+                    $ref: '#/components/responses/InternalServerError'
+            operationId: getProfile
+            summary: Get profile
+    /auth/login:
+        post:
+            tags:
+                - Authentification
+            summary: Connexion utilisateur
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/LoginRequest'
+            responses:
+                '200':
+                    description: Connexion réussie
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/JWTResponse'
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+                '500':
+                    $ref: '#/components/responses/InternalServerError'
+
+    /auth/register:
+        post:
+            tags:
+                - Authentification
+            summary: Inscription utilisateur
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:                            
+                            $ref: '#/components/schemas/User'                           
+            responses:
+                '201':
+                    description: Inscription réussie
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+                '500':
+                    $ref: '#/components/responses/InternalServerError'
+
+    /admin/prestataires/{id}/validate:
+        put:
+            tags:
+                - Administration
+            summary: Valider l'inscription d'un prestataire            
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                '200':
+                    description: Validation réussie
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+                '500':
+                    $ref: '#/components/responses/InternalServerError'
+
+    /admin/users/{id}:
+        delete:
+            tags:
+                - Administration
+            summary: Supprimer un utilisateur
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                '204':
+                    description: Utilisateur supprimé
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+                '500':
+                    $ref: '#/components/responses/InternalServerError'
+
+    /residences:
+        post:
+            tags:
+                - Résidences
+            summary: Ajouter une résidence 
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Residence'
+            responses:
+                '201':
+                    description: Résidence ajoutée
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+                '500':
+                    $ref: '#/components/responses/InternalServerError'
+        get:
+            parameters:
+                - name: cityId
+                  in: query
+                  required: true
+                  schema:
+                      type: integer
+            tags:
+                - Résidences
+            summary: Lister les résidences
+            responses:
+                '200':
+                    description: Liste des résidences
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/FullResidence'
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+                '500':
+                    $ref: '#/components/responses/InternalServerError'
+
+    /vehicules:
+        post:
+            tags:
+                - Véhicules
+            summary: Ajouter un véhicule            
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Vehicule'
+            responses:
+                '201':
+                    description: Véhicule ajouté
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+                '500':
+                    $ref: '#/components/responses/InternalServerError'   
+        get:
+            parameters:
+                - name: cityId
+                  in: query
+                  required: true
+                  schema:
+                      type: integer
+            tags:
+                - Véhicules
+            summary: Lister les véhicules
+            responses:
+                '200':
+                    description: Liste des véhicules
+                    content:
+                        application/json:
+                            schema:                                
+                                $ref: '#/components/schemas/FullVehicule'
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+                '500':
+                    $ref: '#/components/responses/InternalServerError'
+    
+    /vehicules/{id}:
+        delete:
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            tags:
+                - Véhicules
+            summary: suppression un véhicule                        
+            responses:
+                '200':
+                    description: Véhicule supprimer
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+                '500':
+                    $ref: '#/components/responses/InternalServerError'
+
+    /residences/{id}:
+        delete:
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            tags:
+                - Véhicules
+            summary: suppression un véhicule                        
+            responses:
+                '200':
+                    description: Véhicule supprimer
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+                '500':
+                    $ref: '#/components/responses/InternalServerError'
+    /reservations/{id}:
+        delete:
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            tags:
+                - Véhicules
+            summary: suppression un véhicule                        
+            responses:
+                '200':
+                    description: Véhicule supprimer
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+                '500':
+                    $ref: '#/components/responses/InternalServerError'
+
+    /reservations/{reservationId}/payment:
+        post:
+            parameters:
+                - name: reservationId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            operationId: payForReservation 
+            summary: Payer une reservation     
+            responses:
+                '200':
+                    description: Réservation créée
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+                '500':
+                    $ref: '#/components/responses/InternalServerError'        
+    /reservations:        
+        get:
+            tags:
+                - reservation
+            summary: Lister les reservasion
+            operationId: getReservationsBasedOnTouristId
+            responses:
+                '200':
+                    description: Liste des reservation
+                    content:
+                        application/json:
+                            schema:                                
+                                $ref: '#/components/schemas/FullReservation'
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+                '500':
+                    $ref: '#/components/responses/InternalServerError'
+        post:
+            tags:
+                - Réservations
+            summary: Créer ou mettre a jour une réservation     
+            operationId: makeAReservation
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Reservation'
+            responses:
+                '200':
+                    description: Réservation créée
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+                '500':
+                    $ref: '#/components/responses/InternalServerError'
+
+    /reservations/{id}/cancel:
+        put:
+            tags:
+                - Réservations
+            summary: Annuler une réservation            
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                '200':
+                    description: Réservation annulée
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+                '500':
+                    $ref: '#/components/responses/InternalServerError'
+
+    /feedbacks:
+        post:
+            tags:
+                - Feedback
+            summary: Ajouter un feedback          
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Feedback'
+            responses:
+                '201':
+                    description: Feedback ajouté
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+                '500':
+                    $ref: '#/components/responses/InternalServerError'
+        get:           
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/FullFeedback'
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+                '500':
+                    $ref: '#/components/responses/InternalServerError'
+
+    /statistics/reservations:
+        get:
+            tags:
+                - Statistiques
+            summary: Obtenir les statistiques des réservations
+            responses:
+                '200':
+                    description: Statistiques des réservations
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    totalReservations:
+                                        type: integer
+                                    vehiculeReservations:
+                                        type: integer
+                                    residenceReservations:
+                                        type: integer
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+                '500':
+                    $ref: '#/components/responses/InternalServerError'
+security:
+    -
+        auth_token: []

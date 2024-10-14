@@ -13,7 +13,6 @@ export default function VillesTemplate({ children, src }) {
         selectimg.style.filter="brightness(50%)"
         selectimg.style.transition='all .4s ease-in-out'
         selectimg.style.transform='scale(1.1)'
-    
 
     }
 
