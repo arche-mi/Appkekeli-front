@@ -18,6 +18,17 @@ servers:
 
 components:
     schemas:
+        Ville:
+            type: object
+            properties:
+                id:
+                    type: integer
+                name:
+                    type: string
+                    format: email
+                imageUrl:
+                    type: string
+
         APIError:
             type: object
             properties:
@@ -226,6 +237,14 @@ components:
                     items:
                         $ref: '#/components/schemas/Residence'
 
+        FullVilles:
+            type: object
+            properties:
+                villes:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Ville'
+
         FullReservation:
             type: object
             properties:
@@ -386,6 +405,25 @@ paths:
                 '500':
                     $ref: '#/components/responses/InternalServerError'
 
+    /villes:
+        get:
+            summary: Avoir les villes
+            responses:
+                '200':
+                    description: Liste des villes
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/FullVilles'
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+                '500':
+                    $ref: '#/components/responses/InternalServerError'
+            security: []        
     /residences:
         post:
             tags:
