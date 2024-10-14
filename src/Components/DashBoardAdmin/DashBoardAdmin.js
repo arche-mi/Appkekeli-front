@@ -180,13 +180,13 @@ export default function DashBoardAdmin() {
                         <hr />
                         <li><a href="#"><i className="fas fa-file-signature"></i> Gérer les demandes d'inscription des prestataires</a></li>
                         <hr />
-                        <li ><a href="#"><i className="fas fa-car"></i> Gérer les véhicules</a></li>
+                        <li ><a href="/#vehiculeSection"><i className="fas fa-car"></i> Gérer les véhicules</a></li>
                         <hr />
                         {/* onClick={() => toggleSection('vehicule')} */}
-                        <li ><a href="#"><i className="fas fa-home"></i> Gérer les logements</a></li>
+                        <li ><a href="/#logementSection"><i className="fas fa-home"></i> Gérer les logements</a></li>
                         <hr />
                         {/* onClick={() => toggleSection('logement')} */}
-                        <li ><a href="#"><i className="fas fa-users"></i> Consulter les statistiques</a></li>
+                        <li ><a href="/#statistiqueSection"><i className="fas fa-users"></i> Consulter les statistiques</a></li>
                         <hr />
                         {/* onClick={() => toggleSection('statistique')} */}
                         <li><a href="#"><i className="fas fa-cogs"></i> Gérer les avis</a></li>
@@ -195,7 +195,7 @@ export default function DashBoardAdmin() {
 
                 <main className="dashboard">
 
-                    <div>
+                    <div id="vehiculeSection">
                         <h3>Statistiques</h3>
                         <p>Ici sont affichées les statistiques de vos logements...</p>
                     </div>
@@ -291,7 +291,7 @@ export default function DashBoardAdmin() {
                     {/* )} */}
 
                     {/* {sections.logement && ( */}
-                    <section className="card">
+                    <section className="card" id='logementSection'>
                         <h2><i className="fas fa-building"></i> Logements</h2>
 
                         <div className='d-flex justify-content-end'>
@@ -380,7 +380,7 @@ export default function DashBoardAdmin() {
                     </section>
                     {/* )} */}
                     {/* {sections.statistique && ( */}
-                    <section className="card">
+                    <section className="card" id='statistiqueSection'>
                         <h2><i className="fas fa-building"></i> Statistiques</h2>
                         <div className="table-responsive">
                             <table className='table'>
