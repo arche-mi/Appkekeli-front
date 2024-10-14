@@ -6,28 +6,15 @@ import {
   TabPanel,
   TabPanels,
   Spinner,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import "./secondPage.css";
 import { useLocation } from "react-router-dom";
 import Header from "./Header/Header";
-import Footer from "./Footer/Footer";
-import {ResidenceComponent} from './residence/residence'
-import SiteTouristic from "./Body/siteTouristic/SiteTouristic";
-import Restaurant from "./Body/Restaurants/Restaurant";
-import Logement from "./Body/logement/Logement";
-import Vehicules from "./Body/vehicules/Vehicules";
+import { ItemComponent, ResidenceComponent } from "./residence/residence";
 // import jsonData from '../data/data.json'
 /******* import image*/
 import apiClient from "../api/api_client";
-
-import cathedrale1 from "./Assets/CathedralePlateau1.jpeg";
-import cathedrale2 from "./Assets/CathedralePlateau2.jpeg";
-import cathedrale3 from "./Assets/CathedralePlateau3.jpeg";
-
-import Banco1 from "./Assets/ForêtBanco1.jpg";
-import Banco2 from "./Assets/ForetBanco2.jpg";
-import Banco3 from "./Assets/ForetBanco3.jpg";
-import { useQuery } from "@chakra-ui/react";
 
 function SecondPage(props) {
   // const id = props.match.params.id;
@@ -39,7 +26,7 @@ function SecondPage(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   const currentUrl = location.pathname;
-  console.log(currentUrl)
+  console.log(currentUrl);
   const id = currentUrl.split("/")[2];
 
   const fetchData = async () => {
@@ -49,7 +36,9 @@ function SecondPage(props) {
     setResidences(() => residencesData);
     setVehicules(() => vehiculesData);
 
-    console.log(vehiculesData)
+    console.log(residencesData);
+
+    console.log(vehiculesData);
 
     setIsLoading(() => false);
   };
@@ -73,7 +62,7 @@ function SecondPage(props) {
   return (
     <div>
       <Header styles={{ display: "none" }} />
-      <div className=" text-dark" style={{ margin: "8rem 0 0 0" }}>
+      <div className=" text-dark" style={{ margin: "8rem 0 0 0", padding: 50 }}>
         <Tabs isFitted variant="enclosed">
           <TabList mb="1em">
             <Tab>Residences</Tab>
@@ -81,12 +70,26 @@ function SecondPage(props) {
           </TabList>
           <TabPanels>
             <TabPanel>
-              <p>one!</p>
+              <SimpleGrid minChildWidth="300px" spacing="40px">
+                {residences &&
+                  residences.map((residence) => (
+                    <ItemComponent
+                      id={residence.id}
+                      title={residence.name}
+                    />
+                  ))}
+              </SimpleGrid>
             </TabPanel>
             <TabPanel>
-                {
-                    vehicules && vehicules.map((vehicule)=>(<ResidenceComponent  id={vehicule.id} model={vehicule.model}  />))
-                }
+              <SimpleGrid minChildWidth="300px" spacing="40px">
+                {vehicules &&
+                  vehicules.map((vehicule) => (
+                    <ItemComponent
+                      id={vehicule.id}
+                      title={vehicule.model}
+                    />
+                  ))}
+              </SimpleGrid>
             </TabPanel>
           </TabPanels>
         </Tabs>

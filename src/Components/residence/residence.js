@@ -1,7 +1,8 @@
 import React from 'react'
 import { Card,CardBody,Image,Stack,Heading,Text,Divider,CardFooter,Button,ButtonGroup } from "@chakra-ui/react";
 
-export const ResidenceComponent = ({model,id,disponible,description,price,photo}) => {
+export const ItemComponent = ({title,id,photo}) => {
+  console.log(photo)
   return (
     <Card maxW="sm">
       <CardBody>
@@ -9,11 +10,11 @@ export const ResidenceComponent = ({model,id,disponible,description,price,photo}
           src={photo}
           w={400}
           h={200}
-          alt={model}
+          alt={title}
           borderRadius="lg"
         />
         <Stack mt="6" spacing="3">
-          <Heading size="md">{model}</Heading>
+          <Heading size="md">{title}</Heading>
         </Stack>
         <Button>Reserver</Button>
       </CardBody>
