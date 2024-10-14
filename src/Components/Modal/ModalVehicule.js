@@ -15,47 +15,14 @@ export default function ModalVehicule({state}) {
             <div className="modal-body">
 
               <div className="card mb-3 div-img-site">
-                <div className="shadow-sm rounded-3">
-                  <div id={`Modal${state}`} className="carousel slide">
-                    <div className="carousel-indicators">
-                      <button type="button" data-bs-target={`#Modal${state}`} data-bs-slide-to="0" className="active" aria-label="Slide 1" aria-current="true"></button>
-                      <button type="button" data-bs-target={`#Modal${state}`} data-bs-slide-to="1" aria-label="Slide 2" className=""></button>
-                      <button type="button" data-bs-target={`#Modal${state}`} data-bs-slide-to="2" aria-label="Slide 3" className=""></button>
-                    </div>
-                    <div className="carousel-inner" >
-                      <div className="carousel-item active">
-                        <img className='card-img card-img-top card-img-site' id='imgsrcVehi1' alt='banco1' width='' height='' />
-                      </div>
-                      <div className="carousel-item">
-                        <img className='card-img card-img-top card-img-site' id='imgsrcVehi2' alt='banco2' width='' height='' />
-                      </div>
-                      <div className="carousel-item">
-                        <img className='card-img card-img-top card-img-site' id='imgsrcVehi3' alt='banco2' width='' height='' />
-                      </div>
-                    </div>
-                    <button className="carousel-control-prev" type="button" data-bs-target={`#Modal${state}`} data-bs-slide="prev">
-                      <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span className="visually-hidden">Previous</span>
-                    </button>
-                    <button className="carousel-control-next" type="button" data-bs-target={`#Modal${state}`} data-bs-slide="next">
-                      <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span className="visually-hidden">Next</span>
-                    </button>
-                  </div>
-                </div>
-
-                {/* <img src={Banco3} className="card-img-top card-img-site" alt="..." /> */}
+              <img className='rounded-top card-img card-img-size' src={`data:image/png;base64,${state.photos[0]}`} alt={state.marque} width='' height='' />
                 <div className="card-body">
-                  <h5 className="card-title">PARC NATIONAL DU BANCO</h5>
-                  <p className="card-text text-start">Le parc national du Banco est un parc national de la Côte d'Ivoire situé en plein cœur d'Abidjan. « Banco » est une déformation du mot Ebrié * « Gbancô » et signifie « source d’eau rafraichissante »</p>
                   <div className="card-text">
                     <ul className="list-group list-group-flush">
-                      <li className="list-group text-start">Adresse : 9WVX+72R, Abidjan</li>
-                      <li className="list-group text-start">Superficie : 30 km²</li>
-                      <li className="list-group text-start">Date de création : 1953</li>
-                      <li className="list-group text-start">Téléphone : 22414059</li>
-                      <li className="list-group text-start">Coordonnées : 5° 23′ 40″ N, 4° 03′ 07″ O</li>
-                      <li className="list-group text-start">District : Abidjan</li>
+                      <li className="list-group text-start">Marque du vehicule: {state.marque}</li>
+                      <li className="list-group text-start">Modele du vehicule : {state.modele}</li>
+                      <li className="list-group text-start">Prix de la location : {state.pix}</li>
+                      <li className="list-group text-start">Disponible : {state.disponible}</li>
                     </ul>
                   </div>
                 </div>

@@ -156,7 +156,7 @@ hr{
 
 .card-section {
   background-color: white;
-  padding: 20px;
+  /* padding: 20px; */
   margin-bottom: 20px;
   border-radius: 8px;
   /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.05) */

@@ -1,4 +1,4 @@
-import React, {useState }from 'react'
+import React, { useState,useEffect } from 'react'
 import './secondPage.css'
 import { useLocation } from 'react-router-dom'
 import Header from './Header/Header'
@@ -21,6 +21,7 @@ import Banco3 from './Assets/ForetBanco3.jpg'
 function SecondPage(props) {
     // const id = props.match.params.id;
     const location = useLocation();
+    const [token, setToken] = useState()
 
     // Accès à l'URL actuelle
     const currentUrl = location.pathname;
@@ -28,12 +29,10 @@ function SecondPage(props) {
     const id = currentUrl.split('/')[2];
     // console.log(jsonData)
 
-
-    const [logement, setLogement] = useState([]);
-    const [vehicule, setVehicule] = useState([]);
-        
+    useEffect(() => {
+        setToken(localStorage.getItem("token"))
         // Appel initial de la fonction fetch
-        
+
         fetch('http://localhost:8080/residences', {
             method: 'GET',
             // body: JSON.stringify(json),
@@ -53,21 +52,27 @@ function SecondPage(props) {
             })
             .catch(error => console.error('Erreur lors de la récupération des données des residences:', error));
 
-            fetch('http://localhost:8080/vehicules', {
-                method: 'GET',
-                // body: JSON.stringify(json),
-                headers: {
-                    // 'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-            }).then(response => response.json())
-                .then((data) => {
-                    console.log(data.vehicules)
-                    setVehicule(data.vehicules)
-    
-                })
-                .catch(error => console.error('Erreur lors de la récupération des données vehicules:', error));
-    
+        fetch('http://localhost:8080/vehicules', {
+            method: 'GET',
+            // body: JSON.stringify(json),
+            headers: {
+                // 'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+        }).then(response => response.json())
+            .then((data) => {
+                console.log(data.vehicules)
+                setVehicule(data.vehicules)
+
+            })
+            .catch(error => console.error('Erreur lors de la récupération des données vehicules:', error));
+    }, []);
+
+    const [logement, setLogement] = useState([]);
+    const [vehicule, setVehicule] = useState([]);
+
+
+
     // }, []); // Le tableau vide [] fait que l'effet ne se déclenche qu'une seule fois au montage
 
     // Gestion des différents états (chargement, erreur, affichage des données)
@@ -78,8 +83,8 @@ function SecondPage(props) {
     // if (error) {
     //     return <p>Erreur : {error}</p>;
     // }
-console.log('log' +logement)
-console.log('vehi'+vehicule)
+    console.log('log' + logement)
+    console.log('vehi' + vehicule)
 
 
     // var dataLogement = [{ value: "Logement1", src1: Banco1, src2: Banco2, src3: Banco3 }, { value: "Logement2", src1: cathedrale1, src2: cathedrale2, src3: cathedrale3 }, { value: "Logement3", src1: Banco1, src2: Banco2, src3: Banco3 }]
@@ -90,7 +95,7 @@ console.log('vehi'+vehicule)
 
 
             <div className=' text-dark' style={{ margin: '8rem 0 0 0' }}>
-                <h1 className='h1' style={{fontWeight : "600", textTransform: "uppercase"}}>Section Site touristique {id} </h1>
+                <h1 className='h1' style={{ fontWeight: "600", textTransform: "uppercase" }}>Section Site touristique {id} </h1>
                 <div className=''>
                     <div className='album py-2 '>
                         <div className="container">
@@ -104,7 +109,7 @@ console.log('vehi'+vehicule)
                     </div>
                 </div>
                 <div className=''>
-                    <h1 className='' style={{margin: '8rem 0 0 0', fontWeight : "600", textTransform: "uppercase"}}>Section Restaurant {id}</h1>
+                    <h1 className='' style={{ margin: '8rem 0 0 0', fontWeight: "600", textTransform: "uppercase" }}>Section Restaurant {id}</h1>
                     <div className='album py-2 '>
                         <div className="container">
                             <div className='row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3'>
@@ -116,17 +121,17 @@ console.log('vehi'+vehicule)
                     </div>
                 </div>
                 <div className=''>
-                    <h1 className='' style={{margin: '8rem 0 0 0', fontWeight : "600", textTransform: "uppercase"}}>Section Logement {id}</h1>
+                    <h1 className='' style={{ margin: '8rem 0 0 0', fontWeight: "600", textTransform: "uppercase" }}>Section Logement {id}</h1>
                     <div className='album py-2 '>
                         <div className="container">
                             <div className='row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3'>
                                 {
 
-                                    (logement !== 0)?(
+                                    (logement !== 0) ? (
                                         logement.map((key) => {
-    
+
                                             return <Logement state={key}>{key.nom}</Logement>
-                                        })): <div className=''><h1 className=''>Pas encore de logement ajouter</h1></div>
+                                        })) : <div className=''><h1 className=''>Pas encore de logement ajouter</h1></div>
                                 }
 
                             </div>
@@ -135,17 +140,17 @@ console.log('vehi'+vehicule)
 
                 </div>
                 <div className=''>
-                    <h1 className='' style={{margin: '8rem 0 0 0', fontWeight : "600", textTransform: "uppercase"}}>Section Vehicule {id}</h1>
+                    <h1 className='' style={{ margin: '8rem 0 0 0', fontWeight: "600", textTransform: "uppercase" }}>Section Vehicule {id}</h1>
                     <div className='album py-2 '>
                         <div className="container">
                             <div className='row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3'>
                                 {
-                                    
-                                    (vehicule !== 0)?(
-                                    vehicule.map((key) => {
 
-                                        return <Vehicules state={key}>{key.marque}</Vehicules>
-                                    })): <div className=''><h1 className=''>Pas encore de vehicule ajouter</h1></div>
+                                    (vehicule !== 0) ? (
+                                        vehicule.map((s, index) => {
+
+                                            return <Vehicules key={index} state={s}>{s.marque}</Vehicules>
+                                        })) : <div className=''><h1 className=''>Pas encore de vehicule ajouter</h1></div>
                                 }
 
                             </div>
